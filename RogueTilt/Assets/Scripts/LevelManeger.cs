@@ -10,7 +10,7 @@ public class LevelManeger : MonoBehaviour
     public Tile exitTile;
     private Tile startTile;
     public Tile activeTile;
-    public List<Tile> floorTiles; //All the other tiles
+    public List<Tile> floorTiles = new List<Tile>(); //All the other tiles
     
 
     //Possible grid positions
@@ -23,7 +23,7 @@ public class LevelManeger : MonoBehaviour
         //Make sure its empty
         gridPositions.Clear();
 
-        Vector3 position = new Vector3(0, 0, 0);
+        
 
         //x axis, columns
         for (int x = 1; x < columns - 1; x++)
@@ -32,14 +32,15 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 1; y < rows - 1; y++)
             {
+                Vector3 position = new Vector3(0, 0, 0);
+
                 //change position
                 position.Set(x, y, 0);
                 
                 // Put the x and y into the vector 3
                 gridPositions.Add(position);
 
-                floorTiles.Add(new Tile());
-
+                floorTiles.Add(new Tile(position));
                 
             }
         }
@@ -52,6 +53,11 @@ public class LevelManeger : MonoBehaviour
     void Start()
     {
         InitialiseList();
+
+        for(int i =0; i < floorTiles.Count; i++)
+        {
+            Debug.Log("Tile at " + i + "Has the position: " + floorTiles[i].position.x + floorTiles[i].position.y);
+        }
 
         //Assign the center tile as the start tile
 

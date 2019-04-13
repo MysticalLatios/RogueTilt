@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Tile
 {
-    public GameObject baseTile;
-    public List<GameObject> enemies;
+   //public GameObject baseTile;
+   //public List<GameObject> enemies;
 
     //Where the tile is on the grid
     public Vector3 position;
