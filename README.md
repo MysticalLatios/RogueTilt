@@ -1,8 +1,11 @@
 # RogueTilt
 A unity game where an escaped ball music escape a dungeon and destory all other inferior shapes
 
-# Made for the 2019 LumberHacks Hackathon
+## Made for the 2019 LumberHacks Hackathon
 
-# Made by:
+## Made by:
 Zach Freeman
 Joshua Alpert
+
+## Special thanks to our art master:
+Ron Homer
