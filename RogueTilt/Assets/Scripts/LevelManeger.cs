@@ -5,8 +5,8 @@ using UnityEngine;
 public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
-    public int columns = 7;
-    public int rows = 7;
+    public int columns = 6;
+    public int rows = 6;
     public Tile exitTile;
     private Tile startTile;
     public Tile activeTile;
@@ -30,11 +30,11 @@ public class LevelManeger : MonoBehaviour
         InitialiseEndTile();
 
         //x axis, columns
-        for (int x = 1; x <= columns; x++)
+        for (int x = 0; x < columns; x++)
         {
 
             // y axis, rows
-            for (int y = 1; y <= rows; y++)
+            for (int y = 0; y < rows; y++)
             {
                 if (Random.Range(1,20) != 1 
                     && (x != startTile.GetPosition().x && y != startTile.GetPosition().y)
