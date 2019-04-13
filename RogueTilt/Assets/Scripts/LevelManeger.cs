@@ -21,9 +21,7 @@ public class LevelManeger : MonoBehaviour
     void InitialiseList()
     {
         //Make sure its empty
-        gridPositions.Clear();
-
-        
+        gridPositions.Clear();        
 
         //x axis, columns
         for (int x = 1; x < columns - 1; x++)
@@ -32,19 +30,20 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 1; y < rows - 1; y++)
             {
-                Vector3 position = new Vector3(0, 0, 0);
+                if (Random.Range(1,20) != 1) 
+                {
+                    Vector3 position = new Vector3(0, 0, 0);
 
-                //change position
-                position.Set(x, y, 0);
-                
-                // Put the x and y into the vector 3
-                gridPositions.Add(position);
+                    //change position
+                    position.Set(x, y, 0);
 
-                floorTiles.Add(new Tile(position));
-                
+                    // Put the x and y into the vector 3
+                    gridPositions.Add(position);
+
+                    floorTiles.Add(new Tile(position));
+                }
             }
         }
-        
     }
 
    
