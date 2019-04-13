@@ -20,6 +20,14 @@ public class Tile
         return position;
     }
 
+    //Tile constructor
+    public Tile()
+    {
+        //Assign our baseTile from a list of prefabs
+
+        //Randomly assign the enemies
+    }
+
 
 
 }
