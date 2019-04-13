@@ -23,16 +23,22 @@ public class LevelManeger : MonoBehaviour
         //Make sure its empty
         gridPositions.Clear();
 
+        //Place start tile
         startTile = new Tile(new Vector3((columns / 2), (rows / 2), 0), "Start");
 
+        //Place end tile
+        InitialiseEndTile();
+
         //x axis, columns
-        for (int x = 1; x < columns - 1; x++)
+        for (int x = 1; x <= columns; x++)
         {
 
             // y axis, rows
-            for (int y = 1; y < rows - 1; y++)
+            for (int y = 1; y <= rows; y++)
             {
-                if (Random.Range(1,20) != 1 && x != (columns / 2) && x != (rows / 2)) 
+                if (Random.Range(1,20) != 1 
+                    && (x != startTile.GetPosition().x && y != startTile.GetPosition().y)
+                    && ( x != exitTile.GetPosition().x && y != exitTile.GetPosition().y)) 
                 {
                     Vector3 position = new Vector3(0, 0, 0);
 
@@ -48,7 +54,36 @@ public class LevelManeger : MonoBehaviour
         }
     }
 
-   
+    void InitialiseEndTile()
+    {
+        int location = Random.Range(1, 4);
+        
+        switch (location)
+        {
+            case 1:
+                exitTile = new Tile(new Vector3((0), (0), 0), "End");
+                break;
+
+            case 2:
+                exitTile = new Tile(new Vector3((0), (rows), 0), "End");
+                break;
+
+            case 3:
+                exitTile = new Tile(new Vector3((columns), (0), 0), "End");
+                break;
+
+            case 4:
+                exitTile = new Tile(new Vector3((columns), (rows), 0), "End");
+                break;
+
+            default:
+                break;
+        }
+            
+
+    }
+
+
     // Start is called before the first frame update
     // Init the board
     void Start()
