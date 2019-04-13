@@ -37,8 +37,8 @@ public class LevelManeger : MonoBehaviour
             for (int y = 0; y < rows; y++)
             {
                 if (Random.Range(1,20) != 1 
-                    && (x != startTile.GetPosition().x && y != startTile.GetPosition().y)
-                    && ( x != exitTile.GetPosition().x && y != exitTile.GetPosition().y)) 
+                    && !(x == startTile.GetPosition().x && y == startTile.GetPosition().y)
+                    && !(x == exitTile.GetPosition().x && y == exitTile.GetPosition().y)) 
                 {
                     Vector3 position = new Vector3(0, 0, 0);
 
@@ -49,6 +49,10 @@ public class LevelManeger : MonoBehaviour
                     gridPositions.Add(position);
 
                     floorTiles.Add(new Tile(position));
+                }
+                else
+                {
+                    Debug.Log("Position at: " + x + " " + y + "Not created");
                 }
             }
         }
