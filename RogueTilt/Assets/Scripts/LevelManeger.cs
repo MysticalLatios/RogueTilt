@@ -5,8 +5,8 @@ using UnityEngine;
 public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
-    public int columns = 6;
-    public int rows = 6;
+    public int columns = 7;
+    public int rows = 7;
     public Tile exitTile;
     private Tile startTile;
     public Tile activeTile;
