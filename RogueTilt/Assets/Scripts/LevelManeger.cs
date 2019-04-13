@@ -23,6 +23,8 @@ public class LevelManeger : MonoBehaviour
         //Make sure its empty
         gridPositions.Clear();
 
+        Vector3 position = new Vector3(0, 0, 0);
+
         //x axis, columns
         for (int x = 1; x < columns - 1; x++)
         {
@@ -30,16 +32,27 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 1; y < rows - 1; y++)
             {
+                //change position
+                position.Set(x, y, 0);
+                
                 // Put the x and y into the vector 3
-                gridPositions.Add(new Vector3(x, y, 0f));
+                gridPositions.Add(position);
+
+                floorTiles.Add(new Tile());
+
+                
             }
         }
+        
     }
 
+   
     // Start is called before the first frame update
     // Init the board
     void Start()
     {
+        InitialiseList();
+
         //Assign the center tile as the start tile
 
         //Set the active Tile as the start tile
