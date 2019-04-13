@@ -5,6 +5,7 @@ A unity game where an escaped ball music escape a dungeon and destory all other 
 
 ## Made by:
 Zach Freeman
+&
 Joshua Alpert
 
 ## Special thanks to our art master:
