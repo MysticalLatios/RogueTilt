@@ -23,7 +23,7 @@ public class LevelManeger : MonoBehaviour
         //Make sure its empty
         gridPositions.Clear();
 
-        startTile.SetPosition(new Vector3((columns / 2), (rows / 2), 0));
+        startTile = new Tile(new Vector3((columns / 2), (rows / 2), 0), "Start");
 
         //x axis, columns
         for (int x = 1; x < columns - 1; x++)

@@ -31,6 +31,16 @@ public class Tile
         SetPosition(position_in);
     }
 
+    public Tile(Vector3 position_in, string tile_name)
+    {
+        //Assign our baseTile based on the tile_name string
+
+        //Randomly assign the enemies
+
+        //Set the position
+        SetPosition(position_in);
+    }
+
 
 
 }
