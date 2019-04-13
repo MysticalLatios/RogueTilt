@@ -36,7 +36,8 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 0; y < rows; y++)
             {
-                if (Random.Range(1,20) != 1 
+                // TO DO: increase chance of creating hole for everyone postion without hole
+                if (Random.Range(1,10) != 1 
                     && !(x == startTile.GetPosition().x && y == startTile.GetPosition().y)
                     && !(x == exitTile.GetPosition().x && y == exitTile.GetPosition().y)) 
                 {
