@@ -8,9 +8,9 @@ public class LevelManeger : MonoBehaviour
     public int columns = 6;
     public int rows = 6;
     public Tile exitTile;
-    public Tile startTile;
+    private Tile startTile;
     public Tile activeTile;
-    public Tile[] floorTiles; //All the other tiles
+    public List<Tile> floorTiles; //All the other tiles
     
 
     //Possible grid positions
@@ -40,7 +40,10 @@ public class LevelManeger : MonoBehaviour
     // Init the board
     void Start()
     {
+        //Assign the center tile as the start tile
+
         //Set the active Tile as the start tile
+        
         activeTile = startTile;
     }
 
