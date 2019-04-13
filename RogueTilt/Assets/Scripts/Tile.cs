@@ -21,11 +21,14 @@ public class Tile
     }
 
     //Tile constructor
-    public Tile()
+    public Tile(Vector3 position_in)
     {
         //Assign our baseTile from a list of prefabs
 
         //Randomly assign the enemies
+
+        //Set the position
+        SetPosition(position_in);
     }
 
 
