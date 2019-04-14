@@ -5,8 +5,8 @@ using UnityEngine;
 public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
-    public int columns = 6;
-    public int rows = 6;
+    public int columns = 5;
+    public int rows = 3;
     public GameObject exitTile;
     private GameObject startTile;
     public GameObject activeTile;
@@ -30,7 +30,7 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 0; y < rows; y++)
             {
-                if (Random.Range(1, 8) == 1)
+                if (Random.Range(1, 6) == 1)
                 {
                     floorTiles[x].Add(null);
                     Debug.Log("Position at: " + x + " " + y + "Not created");
@@ -58,7 +58,7 @@ public class LevelManeger : MonoBehaviour
         {
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         }
-        exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room"));
+        exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
