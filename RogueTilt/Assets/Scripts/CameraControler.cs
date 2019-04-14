@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public Camera MainCamera;
-    Tile ActiveTile;
+    GameObject ActiveTile;
 
     private Vector3 offset;
 
@@ -24,7 +24,7 @@ public class CameraControler : MonoBehaviour
         MainCamera.transform.position = ActiveTile.transform.position + offset;
     }
 
-    public void UpdateActiveTile(Tile tile)
+    public void UpdateActiveTile(GameObject tile)
     {
         ActiveTile = tile;
     }

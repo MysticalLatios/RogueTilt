@@ -7,10 +7,10 @@ public class LevelManeger : MonoBehaviour
     // Vars for our Level
     public int columns = 6;
     public int rows = 6;
-    public Tile exitTile;
-    private Tile startTile;
-    public Tile activeTile;
-    public List<List<Tile>> floorTiles = new List<List<Tile>>(); //All the other tiles
+    public GameObject exitTile;
+    private GameObject startTile;
+    public GameObject activeTile;
+    public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
 
 
     //Put the cords in the grid
@@ -22,7 +22,7 @@ public class LevelManeger : MonoBehaviour
         //x axis, columns
         for (int x = 0; x < columns; x++)
         {
-            floorTiles.Add(new List<Tile>());
+            floorTiles.Add(new List<GameObject>());
             // y axis, rows
             for (int y = 0; y < rows; y++)
             {
@@ -34,7 +34,8 @@ public class LevelManeger : MonoBehaviour
 
                 else
                 {
-                    floorTiles[x].Add(new Tile(new Vector3(x, y, 0)));
+                    floorTiles[x].Add(Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Tile")));
+                    floorTiles[x][y].transform.position = new Vector3((x + 1) * 15, 0, (y + 1) * 15);
                     Debug.Log("Position at: " + x + " " + y + "Created");
                 }
             }
@@ -42,7 +43,8 @@ public class LevelManeger : MonoBehaviour
 
         //Set start tile
         Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
-        startTile = new Tile(start_pos, "Start");
+        startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Tile"));
+        startTile.transform.position = new Vector3((start_pos.x + 1) * 15, 0, (start_pos.y + 1) * 15);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
 
         //Set end tile
@@ -52,7 +54,8 @@ public class LevelManeger : MonoBehaviour
         {
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         }
-        exitTile = new Tile(end_pos, "Start");
+        exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Tile"));
+        exitTile.transform.position = new Vector3((end_pos.x + 1) * 15, 0, (end_pos.y + 1) * 15);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
     }
