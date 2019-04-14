@@ -28,4 +28,26 @@ public class CameraControler : MonoBehaviour
     {
         ActiveTile = tile;
     }
+
+    public void FixedUpdate()
+    {
+        //check all the keyboard input
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            ActiveTile.transform.Rotate(1f, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            ActiveTile.transform.Rotate(-1f, 0, 0);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            ActiveTile.transform.Rotate(0, 0, 1f);
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            ActiveTile.transform.Rotate(0, 0, -1f);
+        }
+
+    }
 }
