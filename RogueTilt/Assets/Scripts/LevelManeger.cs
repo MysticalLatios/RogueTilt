@@ -36,14 +36,14 @@ public class LevelManeger : MonoBehaviour
                 if (Random.Range(1, 6) == 1)
                 {
                     floorTiles[x].Add(null);
-                    Debug.Log("Position at: " + x + " " + y + "Not created");
+                    //Debug.Log("Position at: " + x + " " + y + "Not created");
                 }
 
                 else
                 {
                     floorTiles[x].Add(Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room")));
                     floorTiles[x][y].transform.position = new Vector3((x + 1) * offset, 0, (y + 1) * offset);
-                    Debug.Log("Position at: " + x + " " + y + "Created");
+                   //Debug.Log("Position at: " + x + " " + y + "Created");
                 }
             }
         }
@@ -58,9 +58,9 @@ public class LevelManeger : MonoBehaviour
         Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
         //ToDo: Make sure they are farther apart
 
-        bool farEnough = (checkDistance(start_pos, end_pos, 2));
+        bool farEnough = (checkDistance(start_pos, end_pos));
 
-        while (end_pos == start_pos || !farEnough)
+        while (end_pos == start_pos && !farEnough)
         {
             int i = 0;
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
@@ -71,7 +71,7 @@ public class LevelManeger : MonoBehaviour
             }
             else
             {
-                farEnough = (checkDistance(start_pos, end_pos, miniDistance));
+                farEnough = (checkDistance(start_pos, end_pos));
             }
         }
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
@@ -81,7 +81,7 @@ public class LevelManeger : MonoBehaviour
     }
 
     //true if end is far enough away
-    bool checkDistance(Vector3 start, Vector3 end, int miniDistance)
+    bool checkDistance(Vector3 start, Vector3 end)
     {
         Vector3 upper_bound = new Vector3(start.x + miniDistance, start.y + miniDistance, 0);
         Vector3 lower_bound = new Vector3(start.x - miniDistance, start.y - miniDistance, 0);
@@ -90,7 +90,6 @@ public class LevelManeger : MonoBehaviour
         {
             return false;
         }
-
 
         return true;
     }
