@@ -5,6 +5,7 @@ using UnityEngine;
 public class Global : MonoBehaviour
 {
     public static GameObject ActiveTile;
+    private LevelManeger levmanag;
 
     public GameObject GetActiveTile()
     {
@@ -22,6 +23,16 @@ public class Global : MonoBehaviour
         ResetActiveTile();
         ActiveTile = gameObject;
         Debug.Log("The Active Tile has been set");
+    }
+
+    public void SetActiveManager(LevelManeger manager)
+    {
+        levmanag = manager;
+    }
+
+    public void createNewManager()
+    {
+        levmanag.Reset();
     }
 
     private void ResetActiveTile()

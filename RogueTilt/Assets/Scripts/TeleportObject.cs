@@ -11,6 +11,8 @@ public class TeleportObject : MonoBehaviour
     //room_to_go should be the whole prefab
     private GameObject room_to_go = null;
 
+    
+
     // Start is called before the first frame update
 
     private void Awake()

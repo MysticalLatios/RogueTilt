@@ -7,7 +7,9 @@ public class Player : MonoBehaviour
     private float timetoTele = 0.25f;
     private float stayCount = 0.0f;
     bool enter_door = false;
-    
+
+    Global global;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -53,6 +55,22 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        /*
+        if (transform.position.y < -10)
+        {
+            global = GameObject.Find("GlobalObject").GetComponent<Global>();
+            global.createNewManager();
+            Destroy(gameObject);
+        }
+        */
+        if (transform.position.y < -10)
+        {
+            global = GameObject.Find("GlobalObject").GetComponent<Global>();
+            
+            Vector3 new_pos = new Vector3();
+            new_pos = global.GetActiveTile().transform.position;
+            new_pos.y = 3.0f;
+            gameObject.transform.position = new_pos;
+        }
     }
 }

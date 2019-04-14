@@ -12,6 +12,7 @@ public class LevelManeger : MonoBehaviour
     private Global global;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
 
+
     private Camera MainCamera;
 
     int offset = 60;
@@ -19,7 +20,36 @@ public class LevelManeger : MonoBehaviour
     //How far can start and end be?
     int miniDistance = 2;
 
-    
+    private void OnDestroy()
+    {
+        Debug.Log("Destroyed level manager");
+        foreach (List<GameObject> rows in floorTiles)
+        {
+            foreach (GameObject tile in rows)
+            {
+               
+                 Destroy(tile);
+               
+            }
+        }
+    }
+
+    public void Reset()
+    {
+        global = GameObject.Find("GlobalObject").GetComponent<Global>();
+
+        //Set up the Tiles
+        InitialiseList();
+
+        //Check if dfs can find its way out of the loop, if so, run InitialiseList() again
+
+        //Set the active Tile as the start tile
+        global.SetActiveTile(startTile);
+
+        AssignNeighbors();
+
+        global.SetActiveManager(this);
+    }
 
     //Put the cords in the grid
     void InitialiseList()
