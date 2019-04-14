@@ -58,44 +58,46 @@ public class LevelManeger : MonoBehaviour
         Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
         //ToDo: Make sure they are farther apart
 
-        bool farEnough = (checkDistance(start_pos, end_pos, miniDistance));
+        bool notFarEnough = (isNotFarEnough(start_pos, end_pos, miniDistance));
 
         int i = 0;
-        int compromiseValue = miniDistance;
-        while (end_pos == start_pos || !farEnough)
+        int compromiseDistance = miniDistance;
+        while (end_pos == start_pos || notFarEnough)
         {
-            Debug.Log("Rerolling");
+            i++;
+            Debug.Log("Rerolling: " + (end_pos == start_pos) + " " + notFarEnough);
             
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
             //Give up tring to find a min distance after X number of tries
             if(i % 10 == 0)
             {
-                farEnough = true;
+                compromiseDistance--;
+                Debug.Log("Compromising...");
             }
             else
             {
-                farEnough = (checkDistance(start_pos, end_pos, 0));
+                notFarEnough = (isNotFarEnough(start_pos, end_pos, compromiseDistance));
             }
-            i++;
+            
         }
+        Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
     }
 
-    //true if end is far enough away
-    bool checkDistance(Vector3 start, Vector3 end, int howFar)
+    //true if end is not far enough away
+    bool isNotFarEnough(Vector3 start, Vector3 end, int howFar)
     {
-        Vector3 upper_bound = new Vector3(start.x + miniDistance, start.y + howFar, 0);
-        Vector3 lower_bound = new Vector3(start.x - miniDistance, start.y - howFar, 0);
+        Vector3 upper_bound = new Vector3(start.x + howFar, start.y + howFar, 0);
+        Vector3 lower_bound = new Vector3(start.x - howFar, start.y - howFar, 0);
 
-        if((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < upper_bound.y))
+        if(((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < upper_bound.y)))
         {
-            return false;
+            return true;
         }
-
-        return true;
+        return false;
     }
 
 
