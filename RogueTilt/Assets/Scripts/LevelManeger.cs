@@ -220,6 +220,8 @@ public class LevelManeger : MonoBehaviour
 
         //Set the active Tile as the start tile
         global.SetActiveTile(startTile);
+
+        AssignNeighbors();
     }
 
     //spawn player ball in start tile
@@ -234,5 +236,32 @@ public class LevelManeger : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    //Assign each tile its neighboors
+    void AssignNeighbors()
+    {
+        // x axis
+        for (int x = 0; x < columns; x++)
+        {
+            // y axis, rows
+            for (int y = 0; y < rows; y++)
+            {
+                GameObject current_tile = floorTiles[x][y];
+
+                if(current_tile != null)
+                {
+                    Debug.Log("The name of this tile is:" + current_tile.name);
+
+                    Transform[] current_door_transforms = current_tile.GetComponentsInChildren<Transform>();
+
+                    foreach (Transform child in current_door_transforms)
+                    {
+                        Debug.Log(child.name);
+                    }
+                }
+            }
+        }
     }
 }
