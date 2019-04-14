@@ -19,6 +19,7 @@ public class LevelManeger : MonoBehaviour
     //How far can start and end be?
     int miniDistance = 2;
 
+    
 
     //Put the cords in the grid
     void InitialiseList()
@@ -93,13 +94,61 @@ public class LevelManeger : MonoBehaviour
         Vector3 upper_bound = new Vector3(start.x + howFar, start.y + howFar, 0);
         Vector3 lower_bound = new Vector3(start.x - howFar, start.y - howFar, 0);
 
-        if(((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < upper_bound.y)))
+        if(((end.x >= lower_bound.x && end.x <= upper_bound.x) && (end.y >= lower_bound.y && end.y <= upper_bound.y)))
         {
             return true;
         }
         return false;
     }
 
+
+    //find the end from the start
+    int depthFirstSearch(Vector3 start_pos)
+    {
+        //Stack contains the Vector3 as position
+        Stack to_search = new Stack();
+        Hashtable searched = new Hashtable();
+
+        
+        to_search.Push(start_pos);
+
+        //searched is Vector3 acting as pos, and 1 or 0 if seen
+        searched.Add(start_pos, 1);
+
+
+        return 0;
+    }
+
+    List<Vector3> getNeighbors(Vector3 start_pos)
+    {
+        int start_x = (int)start_pos.x;
+        int start_y = (int)start_pos.y;
+
+        List<Vector3> to_return = new List<Vector3>();
+
+        //Get left
+        if(start_x - 1 >= 0)
+        {
+            to_return.Add(new Vector3(start_x - 1, start_y));
+        }
+        //Get up
+        if(start_y - 1 >= 0)
+        {
+            to_return.Add(new Vector3(start_x, start_y - 1));
+        }
+        //Get right
+        if(start_x + 1 < columns)
+        {
+           to_return.Add(new Vector3(start_x + 1, start_y));
+        }
+        //Get Down
+        if(start_y + 1 < rows)
+        {
+           to_return.Add(new Vector3(start_x, start_y + 1));
+        }
+
+        return to_return;
+    }
 
     // Start is called before the first frame update
     // Init the board
