@@ -62,10 +62,22 @@ public class CameraControler : MonoBehaviour
         }
 
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
-        currentRotation.x = Mathf.Clamp(currentRotation.x, MaxDeg * -1, MaxDeg);
-        currentRotation.z = Mathf.Clamp(currentRotation.z, MaxDeg * -1, MaxDeg);
+
+        Debug.Log(currentRotation.x.ToString());
+        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), -20, 20);
+        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), -20, 20);
         global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
 
+    }
+
+    float CorrectedRotation(float currentRotation)
+    {
+        if (currentRotation > 180)
+        {
+            currentRotation -= 360;
+        }
+
+        return currentRotation;
     }
 
   
