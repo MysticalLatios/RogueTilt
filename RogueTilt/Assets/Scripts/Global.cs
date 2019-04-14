@@ -8,7 +8,7 @@ public class Global : MonoBehaviour
 
     public GameObject GetActiveTile()
     {
-        Debug.Log("GetActiveTile() has been called");
+        //Debug.Log("GetActiveTile() has been called");
         return ActiveTile;
     }
 

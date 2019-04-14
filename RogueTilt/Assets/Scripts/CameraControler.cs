@@ -23,13 +23,15 @@ public class CameraControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MainCamera.transform.LookAt(global.GetActiveTile().transform);
-
-        MainCamera.transform.position = global.GetActiveTile().transform.position + offset;
+       
     }
 
     public void FixedUpdate()
     {
+        MainCamera.transform.LookAt(global.GetActiveTile().transform);
+
+        MainCamera.transform.position = global.GetActiveTile().transform.position + offset;
+
         //check all the keyboard input
         if (Input.GetKey(KeyCode.UpArrow))
         {
