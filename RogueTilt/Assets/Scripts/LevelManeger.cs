@@ -101,7 +101,7 @@ public class LevelManeger : MonoBehaviour
     {
         Object[] TileContianer = Resources.LoadAll("Prefabs/Tiles/", typeof(GameObject));
 
-        int index = Random.Range(0, TileContianer.Length - 1);
+        int index = Random.Range(0, TileContianer.Length);
 
         GameObject selected_tile = (GameObject)TileContianer[index];
 
@@ -226,7 +226,7 @@ public class LevelManeger : MonoBehaviour
     void spawnBall(Vector3 start_pos)
     {
         GameObject Player = Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
-        Player.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
+        Player.transform.position = new Vector3((start_pos.x + 1) * offset, 1.5f, (start_pos.y + 1) * offset);
     }
 
     // Update is called once per frame
