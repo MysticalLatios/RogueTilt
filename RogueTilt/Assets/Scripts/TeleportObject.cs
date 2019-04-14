@@ -14,7 +14,7 @@ public class TeleportObject : MonoBehaviour
 
     private void Awake()
     {
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
     public void AssignRoom(GameObject room_to_assign)
@@ -23,6 +23,10 @@ public class TeleportObject : MonoBehaviour
         if(room_to_go != null)
         {
             gameObject.SetActive(true);
+        }
+        else
+        {
+            gameObject.SetActive(false);
         }
     }
 
