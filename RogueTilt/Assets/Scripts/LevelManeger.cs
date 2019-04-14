@@ -47,7 +47,7 @@ public class LevelManeger : MonoBehaviour
 
         //Set start tile
         Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
-        startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room"));
+        startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Start Room"));
         startTile.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
 
