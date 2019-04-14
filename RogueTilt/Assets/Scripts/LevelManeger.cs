@@ -54,6 +54,9 @@ public class LevelManeger : MonoBehaviour
         //Set end tile
         Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
         //ToDo: Make sure they are farther apart
+
+
+
         while(end_pos == start_pos)
         {
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
@@ -62,6 +65,11 @@ public class LevelManeger : MonoBehaviour
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
+    }
+
+    bool checkDistance(Vector3 start, Vector3 end)
+    {
+        return true;
     }
 
 
