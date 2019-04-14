@@ -227,6 +227,7 @@ public class LevelManeger : MonoBehaviour
     {
         GameObject Player = Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
         Player.transform.position = new Vector3((start_pos.x + 1) * offset, 1.5f, (start_pos.y + 1) * offset);
+
     }
 
     // Update is called once per frame
