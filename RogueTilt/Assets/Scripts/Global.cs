@@ -6,14 +6,16 @@ public class Global : MonoBehaviour
 {
     public static GameObject ActiveTile;
 
-    public static GameObject GetActiveTile()
+    public GameObject GetActiveTile()
     {
+        Debug.Log("GetActiveTile() has been called");
         return ActiveTile;
     }
 
     public void SetActiveTile(GameObject gameObject)
     {
         ActiveTile = gameObject;
+        Debug.Log("The Active Tile has been set");
     }
 
     // Start is called before the first frame update
