@@ -57,7 +57,7 @@ public class LevelManeger : MonoBehaviour
 
 
 
-        while(end_pos == start_pos)
+        while(end_pos == start_pos || !(checkDistance(start_pos, end_pos, 1)))
         {
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         }
@@ -67,8 +67,17 @@ public class LevelManeger : MonoBehaviour
 
     }
 
-    bool checkDistance(Vector3 start, Vector3 end)
+    bool checkDistance(Vector3 start, Vector3 end, int minDistance)
     {
+        Vector3 upper_bound = new Vector3(start.x + minDistance, start.z + minDistance, 0);
+        Vector3 lower_bound = new Vector3(start.x + minDistance, start.z + minDistance, 0);
+
+        if((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < lower_bound.y))
+        {
+            return false;
+        }
+
+
         return true;
     }
 
