@@ -260,7 +260,30 @@ public class LevelManeger : MonoBehaviour
 
                     foreach (Transform child in current_door_transforms)
                     {
-                        Debug.Log(child.name);
+                        if (child.name.Contains("Door"))
+                        {
+                            Debug.Log("We got this door:" + child.name +" That belongs to: " + current_tile.name);
+
+                            if(child.name[0] == 'N')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'E')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'S')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'W')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+                        }
                     }
                 }
             }
