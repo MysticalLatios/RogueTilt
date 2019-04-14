@@ -40,14 +40,17 @@ public class TeleportObject : MonoBehaviour
 
     public void passObject(GameObject to_move)
     {
-       
 
-        global = GameObject.Find("GlobablObject").GetComponent<Global>();
+        Debug.Log("Got into pass Object");
+
+        global = GameObject.Find("GlobalObject").GetComponent<Global>();
 
         // get the door to move to
         //we have the whole tile 
-        Vector3 new_pos = to_pass.transform.position;
-        new_pos.y = 2.0f;
+        Debug.Log("Trying to tele to: " + room_to_go.name);
+        Vector3 new_pos = new Vector3(); 
+        new_pos = room_to_go.transform.position;
+        new_pos.y = 3.0f;
         to_move.transform.position = new_pos;
 
         global.SetActiveTile(room_to_go);
