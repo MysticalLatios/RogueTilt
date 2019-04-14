@@ -9,7 +9,7 @@ public class LevelManeger : MonoBehaviour
     private int rows = 4;
     public GameObject exitTile;
     private GameObject startTile;
-    public GameObject activeTile;
+    private Global global;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
 
     private Camera MainCamera;
@@ -99,16 +99,15 @@ public class LevelManeger : MonoBehaviour
     // Init the board
     void Start()
     {
+        global = GameObject.Find("GlobalObject").GetComponent<Global>();
+
         //Set up the Tiles
         InitialiseList();
 
         //Check if dfs can find its way out of the loop, if so, run InitialiseList() again
 
         //Set the active Tile as the start tile
-        activeTile = startTile;
-
-        MainCamera = Camera.main;
-        MainCamera.GetComponent<CameraControler>().UpdateActiveTile(activeTile);
+        global.SetActiveTile(startTile);
     }
 
 
