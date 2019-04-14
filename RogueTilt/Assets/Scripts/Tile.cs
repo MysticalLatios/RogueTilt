@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    private GameObject baseTile = null;
+    public GameObject baseTile;
     //public List<GameObject> enemies;
-    public List<GameObject> tilePrefabs;
+    public List<GameObject> tilePrefabs = new List<GameObject>();
     //Where the tile is on the grid
     public Vector3 position;
     private int offset = 15;
@@ -15,11 +15,11 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        GameObject[] tilePrefabsArray = Resources.LoadAll<GameObject>("Prefabs/Tiles");
+        GameObject[] tilePrefabsArray = Resources.LoadAll<GameObject>("Prefabs/Tiles/");
         foreach(GameObject tiletype in tilePrefabsArray)
         {
-            Debug.Log("Added prefab");
-            tilePrefabs.Add(tiletype);
+            //Debug.Log("Added prefab");
+            //tilePrefabs.Add(tiletype);
         }
 
     }
@@ -44,9 +44,9 @@ public class Tile : MonoBehaviour
         //The center is the position because that's how scale be, we need to, at the very least off set each tile by 13
         //We considered the idea that girds should be 30 x 30, so offset by 15 for placement
 
-        baseTile = Instantiate(tilePrefabs[0]) as GameObject;
+        baseTile = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Tile"));
 
-        baseTile.transform.position = new Vector3((position.x + 1) * offset, 0, (position.z + 1) * offset);
+        baseTile.transform.position = new Vector3(0, 0, 0 * offset);
 
     }
 
@@ -59,7 +59,7 @@ public class Tile : MonoBehaviour
         //Set the position
         SetPosition(position_in);
         
-         PlaceSelf();
+        PlaceSelf();
        
     }
 
