@@ -12,6 +12,8 @@ public class LevelManeger : MonoBehaviour
     public GameObject activeTile;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
 
+    private Camera MainCamera;
+
 
     //Put the cords in the grid
     void InitialiseList()
@@ -72,6 +74,9 @@ public class LevelManeger : MonoBehaviour
 
         //Set the active Tile as the start tile
         activeTile = startTile;
+
+        MainCamera = Camera.main;
+        MainCamera.GetComponent<CameraControler>().UpdateActiveTile(activeTile);
     }
 
 

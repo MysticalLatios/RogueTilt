@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public Camera MainCamera;
-    GameObject ActiveTile;
+    public GameObject ActiveTile;
 
     private Vector3 offset;
 
