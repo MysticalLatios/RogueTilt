@@ -214,9 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beac65c5cd572e443958bcb3b4bd9dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilePrefabs:
-  - {fileID: 1107172395784378223, guid: 925856c4bddeecf4a91e8f1118c651af, type: 3}
-  position: {x: 0, y: 0, z: 0}
 --- !u!114 &706193783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,8 +337,8 @@ Camera:
   m_GameObject: {fileID: 1973333734}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 0.8666667}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}

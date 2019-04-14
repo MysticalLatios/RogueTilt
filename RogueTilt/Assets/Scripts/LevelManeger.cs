@@ -14,6 +14,8 @@ public class LevelManeger : MonoBehaviour
 
     private Camera MainCamera;
 
+    int offset = 60;
+
 
     //Put the cords in the grid
     void InitialiseList()
@@ -37,7 +39,7 @@ public class LevelManeger : MonoBehaviour
                 else
                 {
                     floorTiles[x].Add(Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room")));
-                    floorTiles[x][y].transform.position = new Vector3((x + 1) * 15, 0, (y + 1) * 15);
+                    floorTiles[x][y].transform.position = new Vector3((x + 1) * offset, 0, (y + 1) * offset);
                     Debug.Log("Position at: " + x + " " + y + "Created");
                 }
             }
@@ -46,7 +48,7 @@ public class LevelManeger : MonoBehaviour
         //Set start tile
         Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
         startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room"));
-        startTile.transform.position = new Vector3((start_pos.x + 1) * 15, 0, (start_pos.y + 1) * 15);
+        startTile.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
 
         //Set end tile
@@ -57,7 +59,7 @@ public class LevelManeger : MonoBehaviour
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         }
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room"));
-        exitTile.transform.position = new Vector3((end_pos.x + 1) * 15, 0, (end_pos.y + 1) * 15);
+        exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
     }
