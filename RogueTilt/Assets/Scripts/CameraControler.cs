@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public Camera MainCamera;
-    Tile active_tile;
+    Tile ActiveTile;
 
     private Vector3 offset;
 
@@ -13,14 +13,19 @@ public class CameraControler : MonoBehaviour
     void Start()
     {
         //Set the offset
-        offset = transform.position - active_tile.transform.position;
+        offset = transform.position - ActiveTile.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MainCamera.transform.LookAt(active_tile);
+        MainCamera.transform.LookAt(ActiveTile.transform);
 
-        MainCamera.transform.position = active_tile.transform.position + offset;
+        MainCamera.transform.position = ActiveTile.transform.position + offset;
+    }
+
+    public void UpdateActiveTile(Tile tile)
+    {
+        ActiveTile = tile;
     }
 }
