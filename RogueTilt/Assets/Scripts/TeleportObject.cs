@@ -8,12 +8,22 @@ public class TeleportObject : MonoBehaviour
     private GameObject to_pass;
 
     //room_to_go should be the whole prefab
-    private GameObject room_to_go;
-    
+    private GameObject room_to_go = null;
+
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        
+        gameObject.SetActive(false);
+    }
+
+    void AssignRoom(GameObject room_to_assign)
+    {
+        room_to_go = room_to_assign;
+        if(room_to_go != null)
+        {
+            gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
