@@ -63,7 +63,7 @@ public class CameraControler : MonoBehaviour
 
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
-        Debug.Log(currentRotation.x.ToString());
+        //Debug.Log(currentRotation.x.ToString());
         currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), -20, 20);
         currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), -20, 20);
         global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);

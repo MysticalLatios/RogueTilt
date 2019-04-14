@@ -62,6 +62,8 @@ public class LevelManeger : MonoBehaviour
         //ToDo: Make sure they are farther apart
 
         bool notFarEnough = (isNotFarEnough(start_pos, end_pos, miniDistance));
+        //bool canFind = !(depthFirstSearch(start_pos, end_pos));
+        
 
         int i = 0;
         int compromiseDistance = miniDistance;
@@ -75,11 +77,13 @@ public class LevelManeger : MonoBehaviour
             if(i % 10 == 0)
             {
                 compromiseDistance--;
+                //canFind = false;
                 Debug.Log("Compromising...");
             }
             else
             {
                 notFarEnough = (isNotFarEnough(start_pos, end_pos, compromiseDistance));
+                //canFind = !(depthFirstSearch(start_pos, end_pos));
             }
             
         }
@@ -91,6 +95,7 @@ public class LevelManeger : MonoBehaviour
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
     }
+
 
     //true if end is not far enough away
     bool isNotFarEnough(Vector3 start, Vector3 end, int howFar)
@@ -107,52 +112,86 @@ public class LevelManeger : MonoBehaviour
 
 
     //find the end from the start
-    int depthFirstSearch(Vector3 start_pos)
+    bool depthFirstSearch(Vector3 start_pos, Vector3 to_find)
     {
         //Stack contains the Vector3 as position
         Stack<Vector3> to_search = new Stack<Vector3>();
-        Hashtable searched = new Hashtable();
-
+        Dictionary<Vector3, int> searched = new Dictionary<Vector3, int>();
+        
         
         to_search.Push(start_pos);
-
+        
         //searched is Vector3 acting as pos, and 1 or 0 if seen
-        searched.Add(start_pos, 1);
+        searched[start_pos] = 1;
+        
+        //Get The neighbors and add them too stack
         Vector3 top = to_search.Pop();
 
+        addListToStack(getNeighbors(top), ref to_search);
+        
+        while (to_search.Count > 0)
+        {
+            top = to_search.Pop();
+            Debug.Log("Looking at pos: " + top.ToString());
+            if (top == to_find)
+            {
+                return true;
+            }
+            if (searched.ContainsKey(top))
+            {
+               
+                //Already found just move on
+            }
+            else
+            {
+                //Who is this handsome fellow? (Haven't seen before)
+                searched[top] = 1;
+                addListToStack(getNeighbors(top), ref to_search);
+            }
+            
+        }
+        
+        //didn't hit the return couldn't find it
+        return false;
+    }
 
-
-        return 0;
+    void addListToStack(List<Vector3> to_add,ref Stack<Vector3> muh_stack)
+    {
+        foreach (Vector3 vector in to_add)
+        {
+            muh_stack.Push(vector);
+            Debug.Log("Pushed to stack: " + vector.ToString());
+        }
     }
 
     List<Vector3> getNeighbors(Vector3 start_pos)
     {
         int start_x = (int)start_pos.x;
         int start_y = (int)start_pos.y;
-
+        Debug.Log("Getting Neighbors");
         List<Vector3> to_return = new List<Vector3>();
 
         //Get left
-        if(start_x - 1 >= 0)
+        if(start_x - 1 >= 0 && floorTiles[start_x - 1][start_y] != null)
         {
             to_return.Add(new Vector3(start_x - 1, start_y));
         }
         //Get up
-        if(start_y - 1 >= 0)
+        if(start_y - 1 >= 0 && floorTiles[start_x][start_y -1] != null)
         {
             to_return.Add(new Vector3(start_x, start_y - 1));
         }
         //Get right
-        if(start_x + 1 < columns)
+        if(start_x + 1 < columns && floorTiles[start_x + 1][start_y] != null)
         {
            to_return.Add(new Vector3(start_x + 1, start_y));
         }
         //Get Down
-        if(start_y + 1 < rows)
+        if(start_y + 1 < rows && floorTiles[start_x][start_y + 1] != null)
         {
            to_return.Add(new Vector3(start_x, start_y + 1));
         }
-
+        
         return to_return;
     }
 
