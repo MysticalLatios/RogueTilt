@@ -264,20 +264,25 @@ public class LevelManeger : MonoBehaviour
                         {
                             Debug.Log("We got this door:" + child.name + " That belongs to: " + current_tile.name);
                             GameObject nieghboor;
-                            
+
+                            TeleportObject telport_script = child.GetComponent<TeleportObject>();
+
                             if (child.name[0] == 'N')
                             {
-                                Debug.Log("Found a north door");
                                 //Assign the room that the north door would teleport to
                                 //check if in range of grid
-                                if(y - 1 > 0 && y + 1 < rows)
+                                if(y + 1 < rows)
                                 {
-                                    nieghboor = floorTiles[x][y];
-                                    TeleportObject telport_script = child.GetComponent<TeleportObject>();
+                                    nieghboor = floorTiles[x][y + 1];
 
                                     telport_script.AssignRoom(nieghboor);
-                                    Debug.Log("Assigned a room to a door");
+                                    //Debug.Log("Assigned a room to a door");
 
+                                }
+
+                                else
+                                {
+                                    telport_script.AssignRoom(null);
                                 }
 
                             }
@@ -285,16 +290,57 @@ public class LevelManeger : MonoBehaviour
                             else if (child.name[0] == 'E')
                             {
                                 //Assign the room that the north door would teleport to
+                                //check if in range of grid
+                                if (x + 1 < rows)
+                                {
+                                    nieghboor = floorTiles[x + 1][y];
+
+                                    telport_script.AssignRoom(nieghboor);
+                                    //Debug.Log("Assigned a room to a door");
+
+                                }
+
+                                else
+                                {
+                                    telport_script.AssignRoom(null);
+                                }
                             }
 
                             else if (child.name[0] == 'S')
                             {
                                 //Assign the room that the north door would teleport to
+                                if (y - 1 >= 0)
+                                {
+                                    nieghboor = floorTiles[y - 1][y];
+
+                                    telport_script.AssignRoom(nieghboor);
+                                    //Debug.Log("Assigned a room to a door");
+
+                                }
+
+                                else
+                                {
+                                    telport_script.AssignRoom(null);
+                                }
+
                             }
 
                             else if (child.name[0] == 'W')
                             {
                                 //Assign the room that the north door would teleport to
+                                if (x - 1 >= 0)
+                                {
+                                    nieghboor = floorTiles[x - 1][y];
+
+                                    telport_script.AssignRoom(nieghboor);
+                                    //Debug.Log("Assigned a room to a door");
+
+                                }
+
+                                else
+                                {
+                                    telport_script.AssignRoom(null);
+                                }
                             }
 
                             else
