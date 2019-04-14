@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public Camera MainCamera;
+    public int MaxDeg = 30;
+    public float RotateRate = 1f;
 
     Global global;
 
@@ -16,7 +18,7 @@ public class CameraControler : MonoBehaviour
         global = GameObject.Find("GlobalObject").GetComponent<Global>();
 
         //Set the offset
-        offset = transform.position - global.GetActiveTile().transform.position;
+        offset = new Vector3(0, 30, -20);
         Debug.Log("Camera controler has started");
     }
 
@@ -28,27 +30,100 @@ public class CameraControler : MonoBehaviour
 
     public void FixedUpdate()
     {
-        MainCamera.transform.LookAt(global.GetActiveTile().transform);
-
         MainCamera.transform.position = global.GetActiveTile().transform.position + offset;
+
+        MainCamera.transform.LookAt(global.GetActiveTile().transform);
 
         //check all the keyboard input
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            global.GetActiveTile().transform.Rotate(1f, 0, 0);
+            if(CheckRotation("x", "pos"))
+            {
+                global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
+            }
+            
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            global.GetActiveTile().transform.Rotate(-1f, 0, 0);
+            if (CheckRotation("x", "neg"))
+            {
+                global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
+            }
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            global.GetActiveTile().transform.Rotate(0, 0, 1f);
+            if(CheckRotation("y", "pos"))
+            {
+                global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
+            }
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            global.GetActiveTile().transform.Rotate(0, 0, -1f);
+            if (CheckRotation("y", "neg"))
+            {
+                global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
+            }
         }
 
+    }
+
+    public bool CheckRotation(string axis, string sign)
+    {
+        Vector3 AbsoluteRotation = global.GetActiveTile().transform.localEulerAngles;
+        
+        if(axis == "x" && sign == "pos")
+        {
+            if (AbsoluteRotation.x <= MaxDeg)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else if (axis == "x" && sign == "neg")
+        {
+            if (AbsoluteRotation.x >= (MaxDeg * -1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+        if (axis == "y" && sign == "pos")
+        {
+            if (AbsoluteRotation.z <= MaxDeg)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else if (axis == "y" && sign == "neg")
+        {
+            if (AbsoluteRotation.z >= (MaxDeg * -1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else
+        {
+            return false;
+        }
     }
 }
