@@ -230,7 +230,7 @@ public class LevelManeger : MonoBehaviour
     void spawnBall(Vector3 start_pos)
     {
         GameObject Player = Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
-        Player.transform.position = new Vector3((start_pos.x + 1) * offset, 1.5f, (start_pos.y + 1) * offset);
+        Player.transform.position = new Vector3((start_pos.x + 1) * offset, 2f, (start_pos.y + 1) * offset);
 
     }
 

@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
             Debug.Log("In door");
             if (stayCount > timetoTele)
             {
-
+                TeleportObject teleport = other.GetComponent<TeleportObject>();
+                teleport.passObject(gameObject);
             }
             else
             {
