@@ -16,6 +16,9 @@ public class LevelManeger : MonoBehaviour
 
     int offset = 60;
 
+    //How far can start and end be?
+    int miniDistance = 3;
+
 
     //Put the cords in the grid
     void InitialiseList()
@@ -68,7 +71,7 @@ public class LevelManeger : MonoBehaviour
             }
             else
             {
-                farEnough = (checkDistance(start_pos, end_pos, 2));
+                farEnough = (checkDistance(start_pos, end_pos, miniDistance));
             }
         }
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
@@ -78,10 +81,10 @@ public class LevelManeger : MonoBehaviour
     }
 
     //true if end is far enough away
-    bool checkDistance(Vector3 start, Vector3 end, int minDistance)
+    bool checkDistance(Vector3 start, Vector3 end, int miniDistance)
     {
-        Vector3 upper_bound = new Vector3(start.x + minDistance, start.y + minDistance, 0);
-        Vector3 lower_bound = new Vector3(start.x - minDistance, start.y - minDistance, 0);
+        Vector3 upper_bound = new Vector3(start.x + miniDistance, start.y + miniDistance, 0);
+        Vector3 lower_bound = new Vector3(start.x - miniDistance, start.y - miniDistance, 0);
 
         if((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < upper_bound.y))
         {
