@@ -94,6 +94,7 @@ public class LevelManeger : MonoBehaviour
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
+        spawnBall(start_pos);
     }
 
 
@@ -210,7 +211,12 @@ public class LevelManeger : MonoBehaviour
         global.SetActiveTile(startTile);
     }
 
-
+    //spawn player ball in start tile
+    void spawnBall(Vector3 start_pos)
+    {
+        GameObject Player = Instantiate(Resources.Load<GameObject>("Prefabs/Player"));
+        Player.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
+    }
 
     // Update is called once per frame
     void Update()
