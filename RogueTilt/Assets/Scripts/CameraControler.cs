@@ -5,8 +5,8 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     public Camera MainCamera;
-    public int MaxDeg = 30;
-    public float RotateRate = 1f;
+    public int MaxDeg = 20;
+    public float RotateRate = 2f;
 
     Global global;
 
@@ -37,93 +37,48 @@ public class CameraControler : MonoBehaviour
         //check all the keyboard input
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            if(CheckRotation("x", "pos"))
-            {
-                global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
-            }
+
+            global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
+            
             
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            if (CheckRotation("x", "neg"))
-            {
-                global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
-            }
+
+            global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
+            
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            if(CheckRotation("y", "pos"))
-            {
-                global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
-            }
+
+            global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
+
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            if (CheckRotation("y", "neg"))
-            {
-                global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
-            }
-        }
-
-    }
-
-    public bool CheckRotation(string axis, string sign)
-    {
-        Vector3 AbsoluteRotation = global.GetActiveTile().transform.localEulerAngles;
+    
+            global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
         
-        if(axis == "x" && sign == "pos")
-        {
-            if (AbsoluteRotation.x <= MaxDeg)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
-        else if (axis == "x" && sign == "neg")
-        {
-            if (AbsoluteRotation.x >= (MaxDeg * -1))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
+        Debug.Log(currentRotation.x.ToString());
+        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), -20, 20);
+        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), -20, 20);
+        global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
 
-
-        if (axis == "y" && sign == "pos")
-        {
-            if (AbsoluteRotation.z <= MaxDeg)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        else if (axis == "y" && sign == "neg")
-        {
-            if (AbsoluteRotation.z >= (MaxDeg * -1))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        else
-        {
-            return false;
-        }
     }
+
+    float CorrectedRotation(float currentRotation)
+    {
+        if (currentRotation > 180)
+        {
+            currentRotation -= 360;
+        }
+
+        return currentRotation;
+    }
+
+  
 }
