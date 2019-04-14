@@ -51,6 +51,8 @@ public class LevelManeger : MonoBehaviour
 
         //Set start tile
         Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
+        //clean old tile
+        Destroy(floorTiles[(int)start_pos.x][(int)start_pos.y]);
         startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Start Room"));
         startTile.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
@@ -82,6 +84,8 @@ public class LevelManeger : MonoBehaviour
             
         }
         Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
+        //clean old tile
+        Destroy(floorTiles[(int)end_pos.x][(int)end_pos.y]);
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
@@ -106,7 +110,7 @@ public class LevelManeger : MonoBehaviour
     int depthFirstSearch(Vector3 start_pos)
     {
         //Stack contains the Vector3 as position
-        Stack to_search = new Stack();
+        Stack<Vector3> to_search = new Stack<Vector3>();
         Hashtable searched = new Hashtable();
 
         
@@ -114,6 +118,8 @@ public class LevelManeger : MonoBehaviour
 
         //searched is Vector3 acting as pos, and 1 or 0 if seen
         searched.Add(start_pos, 1);
+        Vector3 top = to_search.Pop();
+
 
 
         return 0;
