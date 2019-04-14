@@ -5,8 +5,8 @@ using UnityEngine;
 public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
-    public int columns = 5;
-    public int rows = 3;
+    private int columns = 5;
+    private int rows = 4;
     public GameObject exitTile;
     private GameObject startTile;
     public GameObject activeTile;
@@ -55,11 +55,21 @@ public class LevelManeger : MonoBehaviour
         Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
         //ToDo: Make sure they are farther apart
 
+        bool farEnough = (checkDistance(start_pos, end_pos, 2));
 
-
-        while(end_pos == start_pos || !(checkDistance(start_pos, end_pos, 1)))
+        while (end_pos == start_pos || !farEnough)
         {
+            int i = 0;
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
+            //Give up tring to find a min distance after X number of tries
+            if(i > 10)
+            {
+                farEnough = true;
+            }
+            else
+            {
+                farEnough = (checkDistance(start_pos, end_pos, 2));
+            }
         }
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
@@ -67,12 +77,13 @@ public class LevelManeger : MonoBehaviour
 
     }
 
+    //true if end is far enough away
     bool checkDistance(Vector3 start, Vector3 end, int minDistance)
     {
-        Vector3 upper_bound = new Vector3(start.x + minDistance, start.z + minDistance, 0);
-        Vector3 lower_bound = new Vector3(start.x + minDistance, start.z + minDistance, 0);
+        Vector3 upper_bound = new Vector3(start.x + minDistance, start.y + minDistance, 0);
+        Vector3 lower_bound = new Vector3(start.x - minDistance, start.y - minDistance, 0);
 
-        if((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < lower_bound.y))
+        if((end.x > lower_bound.x && end.x < upper_bound.x) && (end.y > lower_bound.y && end.y < upper_bound.y))
         {
             return false;
         }
