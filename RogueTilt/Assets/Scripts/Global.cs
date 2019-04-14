@@ -26,7 +26,7 @@ public class Global : MonoBehaviour
 
     private void ResetActiveTile()
     {
-        GetActiveTile().transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //GetActiveTile().transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     // Start is called before the first frame update
