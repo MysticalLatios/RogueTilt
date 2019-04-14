@@ -19,13 +19,14 @@ public class Global : MonoBehaviour
 
     public void SetActiveTile(GameObject gameObject)
     {
+        ResetActiveTile();
         ActiveTile = gameObject;
         Debug.Log("The Active Tile has been set");
     }
 
-    public void ResetActiveTile()
+    private void ResetActiveTile()
     {
-        GetActiveTile().transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //GetActiveTile().transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     // Start is called before the first frame update
