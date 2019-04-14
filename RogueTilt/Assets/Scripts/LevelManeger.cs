@@ -222,6 +222,8 @@ public class LevelManeger : MonoBehaviour
 
         //Set the active Tile as the start tile
         global.SetActiveTile(startTile);
+
+        AssignNeighbors();
     }
 
     //spawn player ball in start tile
@@ -236,5 +238,55 @@ public class LevelManeger : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    //Assign each tile its neighboors
+    void AssignNeighbors()
+    {
+        // x axis
+        for (int x = 0; x < columns; x++)
+        {
+            // y axis, rows
+            for (int y = 0; y < rows; y++)
+            {
+                GameObject current_tile = floorTiles[x][y];
+
+                if(current_tile != null)
+                {
+                    Debug.Log("The name of this tile is:" + current_tile.name);
+
+                    Transform[] current_door_transforms = current_tile.GetComponentsInChildren<Transform>();
+
+                    foreach (Transform child in current_door_transforms)
+                    {
+                        if (child.name.Contains("Door"))
+                        {
+                            Debug.Log("We got this door:" + child.name +" That belongs to: " + current_tile.name);
+
+                            if(child.name[0] == 'N')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'E')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'S')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+
+                            else if (child.name[0] == 'W')
+                            {
+                                //Assign the room that the north door would teleport to
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
