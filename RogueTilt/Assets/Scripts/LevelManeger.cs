@@ -262,11 +262,24 @@ public class LevelManeger : MonoBehaviour
                     {
                         if (child.name.Contains("Door"))
                         {
-                            Debug.Log("We got this door:" + child.name +" That belongs to: " + current_tile.name);
-
-                            if(child.name[0] == 'N')
+                            Debug.Log("We got this door:" + child.name + " That belongs to: " + current_tile.name);
+                            GameObject nieghboor;
+                            
+                            if (child.name[0] == 'N')
                             {
+                                Debug.Log("Found a north door");
                                 //Assign the room that the north door would teleport to
+                                //check if in range of grid
+                                if(y - 1 > 0 && y + 1 < rows)
+                                {
+                                    nieghboor = floorTiles[x][y];
+                                    TeleportObject telport_script = child.GetComponent<TeleportObject>();
+
+                                    telport_script.AssignRoom(nieghboor);
+                                    Debug.Log("Assigned a room to a door");
+
+                                }
+
                             }
 
                             else if (child.name[0] == 'E')
@@ -282,6 +295,11 @@ public class LevelManeger : MonoBehaviour
                             else if (child.name[0] == 'W')
                             {
                                 //Assign the room that the north door would teleport to
+                            }
+
+                            else
+                            {
+                                //wtf is this door
                             }
                         }
                     }
