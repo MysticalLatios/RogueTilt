@@ -17,7 +17,7 @@ public class TeleportObject : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void AssignRoom(GameObject room_to_assign)
+    public void AssignRoom(GameObject room_to_assign)
     {
         room_to_go = room_to_assign;
         if(room_to_go != null)
