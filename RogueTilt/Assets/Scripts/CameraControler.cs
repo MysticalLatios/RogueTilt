@@ -27,6 +27,7 @@ public class CameraControler : MonoBehaviour
     public void UpdateActiveTile(GameObject tile)
     {
         ActiveTile = tile;
+        Debug.Log("Active tile updated on CameraControler!");
     }
 
     public void FixedUpdate()
