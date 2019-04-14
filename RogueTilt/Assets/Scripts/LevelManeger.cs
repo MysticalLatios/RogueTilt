@@ -6,7 +6,7 @@ public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
     private int columns = 5;
-    private int rows = 4;
+    private int rows = 5;
     public GameObject exitTile;
     private GameObject startTile;
     private Global global;
@@ -42,7 +42,7 @@ public class LevelManeger : MonoBehaviour
 
                 else
                 {
-                    floorTiles[x].Add(Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Basic Room")));
+                    floorTiles[x].Add(Instantiate(pickTile()));
                     floorTiles[x][y].transform.position = new Vector3((x + 1) * offset, 0, (y + 1) * offset);
                    //Debug.Log("Position at: " + x + " " + y + "Created");
                 }
@@ -53,7 +53,7 @@ public class LevelManeger : MonoBehaviour
         Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
         //clean old tile
         Destroy(floorTiles[(int)start_pos.x][(int)start_pos.y]);
-        startTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/Start Room"));
+        startTile = Instantiate(Resources.Load<GameObject>("Prefabs/SpecialTile/Start Room"));
         startTile.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
 
@@ -90,11 +90,22 @@ public class LevelManeger : MonoBehaviour
         Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
         //clean old tile
         Destroy(floorTiles[(int)end_pos.x][(int)end_pos.y]);
-        exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/Tiles/End Room"));
+        exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/SpecialTile/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
         spawnBall(start_pos);
+    }
+
+    GameObject pickTile()
+    {
+        Object[] TileContianer = Resources.LoadAll("Prefabs/Tiles/", typeof(GameObject));
+
+        int index = Random.Range(0, TileContianer.Length - 1);
+
+        GameObject selected_tile = (GameObject)TileContianer[index];
+
+        return selected_tile;
     }
 
 
