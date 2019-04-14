@@ -28,29 +28,29 @@ public class LevelManeger : MonoBehaviour
             {
                 if (Random.Range(1, 8) == 1)
                 {
-                    floorTiles[x][y] = null;
+                    floorTiles[x].Add(null);
                     Debug.Log("Position at: " + x + " " + y + "Not created");
                 }
 
                 else
                 {
-                    floorTiles[x][y] = new Tile(new Vector3(x, y, 0));
+                    floorTiles[x].Add(new Tile(new Vector3(x, y, 0)));
                     Debug.Log("Position at: " + x + " " + y + "Created");
                 }
             }
         }
 
         //Set start tile
-        Vector3 start_pos = new Vector3(Random.Range(0, columns), Random.Range(0, rows), 0);
+        Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
         startTile = new Tile(start_pos, "Start");
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
 
         //Set end tile
-        Vector3 end_pos = new Vector3(Random.Range(0, columns), Random.Range(0, rows), 0);
+        Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
         //ToDo: Make sure they are farther apart
         while(end_pos == start_pos)
         {
-            end_pos = new Vector3(Random.Range(0, columns), Random.Range(0, rows), 0);
+            end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         }
         exitTile = new Tile(end_pos, "Start");
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
