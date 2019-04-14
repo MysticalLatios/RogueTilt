@@ -15,7 +15,13 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        
+        GameObject[] tilePrefabsArray = Resources.LoadAll<GameObject>("Prefabs/Tiles");
+        foreach(GameObject tiletype in tilePrefabsArray)
+        {
+            Debug.Log("Added prefab");
+            tilePrefabs.Add(tiletype);
+        }
+
     }
 
     public void SetPosition(Vector3 pos_in)
@@ -31,16 +37,16 @@ public class Tile : MonoBehaviour
     private void PlaceSelf()
     {
         //Assign it's tile type from the list of prefabs
-      
-        baseTile = tilePrefabs[0];
-        
- 
+
+
         //place according to it's postion
         //Each tile is 26 X 26
         //The center is the position because that's how scale be, we need to, at the very least off set each tile by 13
         //We considered the idea that girds should be 30 x 30, so offset by 15 for placement
 
-        Instantiate(baseTile, new Vector3((position.x + 1) * offset, 0, (position.z + 1) * offset), new Quaternion(0, 0, 0, 0));
+        baseTile = Instantiate(tilePrefabs[0]) as GameObject;
+
+        baseTile.transform.position = new Vector3((position.x + 1) * offset, 0, (position.z + 1) * offset);
 
     }
 
@@ -52,10 +58,9 @@ public class Tile : MonoBehaviour
         //Randomly assign the enemies
         //Set the position
         SetPosition(position_in);
-        if (tilePrefabs.Count > 0)
-        {
-            PlaceSelf();
-        }
+        
+         PlaceSelf();
+       
     }
 
     public Tile(Vector3 position_in, string tile_name)
@@ -66,10 +71,9 @@ public class Tile : MonoBehaviour
         Debug.Log("Got to tile");
         //Set the position in the grid 
         SetPosition(position_in);
-        if (tilePrefabs.Count > 0)
-        {
-            PlaceSelf();
-        }
+       
+         PlaceSelf();
+        
     }
 
 
