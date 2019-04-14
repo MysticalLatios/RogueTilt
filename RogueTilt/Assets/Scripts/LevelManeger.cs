@@ -311,7 +311,7 @@ public class LevelManeger : MonoBehaviour
                                 //Assign the room that the north door would teleport to
                                 if (y - 1 >= 0)
                                 {
-                                    nieghboor = floorTiles[y - 1][y];
+                                    nieghboor = floorTiles[x][y - 1];
 
                                     telport_script.AssignRoom(nieghboor);
                                     //Debug.Log("Assigned a room to a door");
