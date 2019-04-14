@@ -97,6 +97,8 @@ public class LevelManeger : MonoBehaviour
         spawnBall(start_pos);
     }
 
+
+
     GameObject pickTile()
     {
         Object[] TileContianer = Resources.LoadAll("Prefabs/Tiles/", typeof(GameObject));
