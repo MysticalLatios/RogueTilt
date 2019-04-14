@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 471281949}
   - component: {fileID: 471281948}
   - component: {fileID: 471281947}
-  - component: {fileID: 471281946}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -133,18 +132,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &471281946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471281945}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5601bbe8c7c479d4eb1f256864d92d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &471281947
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -244,7 +231,6 @@ GameObject:
   - component: {fileID: 513201992}
   - component: {fileID: 513201991}
   - component: {fileID: 513201990}
-  - component: {fileID: 513201993}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -316,20 +302,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 26.458002, y: 0, z: 0}
---- !u!114 &513201993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 513201989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beac65c5cd572e443958bcb3b4bd9dd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilePrefabs: []
-  position: {x: 0, y: 0, z: 0}
 --- !u!1 &844455401
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +314,6 @@ GameObject:
   - component: {fileID: 844455404}
   - component: {fileID: 844455403}
   - component: {fileID: 844455402}
-  - component: {fileID: 844455406}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -422,22 +393,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &844455406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 844455401}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6494a4e3c94edf340a61a9259dca05c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  columns: 6
-  rows: 6
-  exitTile: {fileID: 0}
-  activeTile: {fileID: 0}
 --- !u!1 &1707086403
 GameObject:
   m_ObjectHideFlags: 0
