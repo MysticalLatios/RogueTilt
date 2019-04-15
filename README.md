@@ -9,4 +9,4 @@ Joshua Alpert
 ### Special thanks to our art master:
 Ron Homer
 
-## Project started as part of the 2019 HSU hackathon
+### Project started as part of the 2019 HSU hackathon
