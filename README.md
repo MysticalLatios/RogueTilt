@@ -1,5 +1,5 @@
 # RogueTilt
-A unity game where an escaped ball music escape a dungeon and destory all other inferior shapes
+A unity game where you move a ball through a procedurally generated maze/dungeon by tilting the room you are in.
 
 ## Made for the 2019 LumberHacks Hackathon
 
