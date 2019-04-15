@@ -34,50 +34,6 @@ public class CameraControler : MonoBehaviour
 
         MainCamera.transform.LookAt(global.GetActiveTile().transform);
 
-        //check all the keyboard input
-        if (Input.GetKey(KeyCode.UpArrow))
-        {
-
-            global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
-            
-            
-        }
-        if (Input.GetKey(KeyCode.DownArrow))
-        {
-
-            global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
-            
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-
-            global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
-
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-    
-            global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
-        
-        }
-
-        Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
-
-        //Debug.Log(currentRotation.x.ToString());
-        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), -20, 20);
-        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), -20, 20);
-        global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
-
-    }
-
-    float CorrectedRotation(float currentRotation)
-    {
-        if (currentRotation > 180)
-        {
-            currentRotation -= 360;
-        }
-
-        return currentRotation;
     }
 
   
