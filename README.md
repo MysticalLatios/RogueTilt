@@ -3,10 +3,10 @@ A unity game where you move a ball through a procedurally generated maze/dungeon
 
 ## Made for the 2019 LumberHacks Hackathon
 
-## Made by:
+### Made by:
 Zach Freeman
 &
 Joshua Alpert
 
-## Special thanks to our art master:
+### Special thanks to our art master:
 Ron Homer
