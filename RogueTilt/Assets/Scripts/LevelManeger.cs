@@ -27,9 +27,7 @@ public class LevelManeger : MonoBehaviour
         {
             foreach (GameObject tile in rows)
             {
-               
                  Destroy(tile);
-               
             }
         }
     }
@@ -100,7 +98,7 @@ public class LevelManeger : MonoBehaviour
         while (end_pos == start_pos || notFarEnough)
         {
             i++;
-            Debug.Log("Rerolling: " + (end_pos == start_pos) + " " + notFarEnough);
+            Debug.Log("Rerolling,  end_pos == start_pos:" + (end_pos == start_pos) + " notFarEnough:" + notFarEnough);
             
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
             //Give up tring to find a min distance after X number of tries
@@ -124,6 +122,7 @@ public class LevelManeger : MonoBehaviour
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
 
+        //Spawn the player ball
         spawnBall(start_pos);
     }
 
@@ -154,7 +153,7 @@ public class LevelManeger : MonoBehaviour
         return false;
     }
 
-
+    //ToDo: Correct dfs so it actualy works
     //find the end from the start
     bool depthFirstSearch(Vector3 start_pos, Vector3 to_find)
     {
