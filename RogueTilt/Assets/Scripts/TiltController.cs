@@ -33,23 +33,33 @@ public class TiltController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        //check all the keyboard input
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (SystemInfo.supportsGyroscope)
         {
-            global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
+            Vector3 absolute_transform = input_Gyro.attitude.eulerAngles;
+
+            global.GetActiveTile().transform.rotation = Quaternion.Euler(absolute_transform.x, 0, absolute_transform.y);
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+
+        else
         {
-            global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
-        }
+            //check all the keyboard input
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
+            }
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
+            }
+        }        
 
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
