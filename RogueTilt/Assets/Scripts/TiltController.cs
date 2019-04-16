@@ -59,7 +59,13 @@ public class TiltController : MonoBehaviour
             {
                 global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
             }
-        }        
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            global.ResetActiveTile();
+        }
+
 
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
