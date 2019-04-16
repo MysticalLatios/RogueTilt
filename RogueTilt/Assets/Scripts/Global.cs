@@ -35,7 +35,7 @@ public class Global : MonoBehaviour
         levmanag.Reset();
     }
 
-    private void ResetActiveTile()
+    public void ResetActiveTile()
     {
         //Reset the rotation of the tile
         GetActiveTile().transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
