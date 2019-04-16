@@ -20,8 +20,8 @@ public class Global : MonoBehaviour
 
     public void SetActiveTile(GameObject gameObject)
     {
-        ResetActiveTile();
         ActiveTile = gameObject;
+        ResetActiveTile();
         Debug.Log("The Active Tile has been set");
     }
 
@@ -37,13 +37,15 @@ public class Global : MonoBehaviour
 
     private void ResetActiveTile()
     {
-        //GetActiveTile().transform.localRotation = Quaternion.Euler(0, 0, 0);
+        //Reset the rotation of the tile
+        GetActiveTile().transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Init it as itself, but this will get overittern very soon
+        //ActiveTile = this.gameObject;
     }
 
     // Update is called once per frame
