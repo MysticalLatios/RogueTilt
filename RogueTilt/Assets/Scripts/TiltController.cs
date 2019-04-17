@@ -15,7 +15,6 @@ public class TiltController : MonoBehaviour
     //Gryro for devices that support it
     Gyroscope input_Gyro;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,22 +27,25 @@ public class TiltController : MonoBehaviour
             input_Gyro = Input.gyro;
             input_Gyro.enabled = true;
         }
-
     }
 
     public void FixedUpdate()
     {
+        //if system has a gryo use the gryo input
         if (SystemInfo.supportsGyroscope)
         {
             Vector3 absolute_transform = input_Gyro.attitude.eulerAngles;
 
+            //ToDo: Make rotation more sensitve by taking half of the rotation, but make sure to correct the rotation first?
+            //Quaternions are a bit strange so double check everything https://i.redd.it/vqivxqqxpts21.jpg
             global.GetActiveTile().transform.rotation = Quaternion.Euler(absolute_transform.x, 0, absolute_transform.y);
         }
 
+        //If no gryo use keyboard input
         else
         {
             //check all the keyboard input
-            if (Input.GetKey(KeyCode.UpArrow)  || Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
                 global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
             }
@@ -61,6 +63,7 @@ public class TiltController : MonoBehaviour
             }
         }
 
+        //Space bar to reset rotation
         if (Input.GetKey(KeyCode.Space))
         {
             global.ResetActiveTile();
@@ -70,16 +73,10 @@ public class TiltController : MonoBehaviour
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
         //Debug.Log(currentRotation.x.ToString());
-        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), -20, 20);
-        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), -20, 20);
+        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), (-1 * MaxDeg), MaxDeg);
+        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), (-1 * MaxDeg), MaxDeg);
         global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     //CorrectedRotation for handling
