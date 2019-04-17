@@ -23,8 +23,6 @@ public class LevelManeger : MonoBehaviour
     {
         global = GameObject.Find("GlobalObject").GetComponent<Global>();
 
-
-
         //Set up the Tiles
         InitialiseList();
 
@@ -100,7 +98,6 @@ public class LevelManeger : MonoBehaviour
         bool notFarEnough = (isNotFarEnough(start_pos, end_pos, miniDistance));
         //Debug.Log("Yo we did the dfs and the result is:" + canFind);
 
-
         int i = 0;
         int compromiseDistance = miniDistance;
         while (end_pos == start_pos || notFarEnough )
@@ -120,8 +117,6 @@ public class LevelManeger : MonoBehaviour
             {
                 notFarEnough = (isNotFarEnough(start_pos, end_pos, compromiseDistance));
             }
-
-
         }
         //Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
         //clean old tile
@@ -134,7 +129,6 @@ public class LevelManeger : MonoBehaviour
     //Put the cords in the grid
     void InitialiseList()
     {
-
         createMap();
 
         //Set start tile
@@ -142,11 +136,7 @@ public class LevelManeger : MonoBehaviour
 
         //Set end tile
         IntialiseEnd();
-
-        
     }
-
-
 
     GameObject pickTile()
     {
@@ -158,7 +148,6 @@ public class LevelManeger : MonoBehaviour
 
         return selected_tile;
     }
-
 
     //true if end is not far enough away
     bool isNotFarEnough(Vector3 start, Vector3 end, int howFar)
@@ -172,61 +161,6 @@ public class LevelManeger : MonoBehaviour
         }
         return false;
     }
-
-
-
-    //ToDo: Change dfs to bfs, get all the tiles we can get to and remove the rest
-    //find the end from the start
-    bool depthFirstSearch(Vector3 start_pos, Vector3 to_find)
-    {
-        //Stack contains the Vector3 as position
-        Stack<Vector3> to_search = new Stack<Vector3>();
-        Dictionary<Vector3, int> searched = new Dictionary<Vector3, int>();
-        
-        
-        to_search.Push(start_pos);
-        
-        //searched is Vector3 acting as pos, and 1 or 0 if seen
-        searched[start_pos] = 1;
-        
-        //Get The neighbors and add them too stack
-        Vector3 top = to_search.Pop();
-
-
-        foreach (Vector3 vector in getNeighbors(top))
-        {
-            to_search.Push(vector);
-        }
-
-        while (to_search.Count > 0)
-        {
-            top = to_search.Pop();
-            //Debug.Log("Looking at pos: " + top.ToString());
-            if (top == to_find)
-            {
-                return true;
-            }
-            if (searched.ContainsKey(top))
-            {
-               
-                //Already found just move on
-            }
-            else
-            {
-                //Who is this handsome fellow? (Haven't seen before)
-                searched[top] = 1;
-                foreach (Vector3 vector in getNeighbors(top))
-                {
-                    to_search.Push(vector);
-                }
-            }
-            
-        }
-        
-        //didn't hit the return couldn't find it
-        return false;
-    }
-
 
     //Search through our grid to make sure we can find the exit, also destroy places we cant get to
     private bool BreadthFirstSearch(Vector3 start_pos, Vector3 to_find)
@@ -253,11 +187,11 @@ public class LevelManeger : MonoBehaviour
 
         //searched is Vector3 acting as pos, and 1 or 0 if seen
         searched[start_pos] = 1;
-
-        //Get The neighbors and add them too stack
+        
+        //Get first front
         Vector3 front = to_search.Dequeue();
 
-
+        //Get The neighbors and add them to Queue
         foreach (Vector3 vector in getNeighbors(front))
         {
             to_search.Enqueue(vector);
