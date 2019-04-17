@@ -5,13 +5,15 @@ using UnityEngine;
 public class LevelManeger : MonoBehaviour
 {
     // Vars for our Level
-    private int columns = 5;
-    private int rows = 5;
+    private static int columns = 6;
+    private static int rows = 6;
     public GameObject exitTile;
+    private Vector3 end_pos;
     private GameObject startTile;
+    private Vector3 start_pos;
     private Global global;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
-
+    
 
     private Camera MainCamera;
 
@@ -20,21 +22,11 @@ public class LevelManeger : MonoBehaviour
     //How far can start and end be?
     int miniDistance = 2;
 
-    private void OnDestroy()
-    {
-        Debug.Log("Destroyed level manager");
-        foreach (List<GameObject> rows in floorTiles)
-        {
-            foreach (GameObject tile in rows)
-            {
-                 Destroy(tile);
-            }
-        }
-    }
-
     public void Reset()
     {
         global = GameObject.Find("GlobalObject").GetComponent<Global>();
+
+
 
         //Set up the Tiles
         InitialiseList();
@@ -49,11 +41,22 @@ public class LevelManeger : MonoBehaviour
         global.SetActiveManager(this);
     }
 
-    //Put the cords in the grid
-    void InitialiseList()
+    void ClearTileList()
+    {
+        foreach (List<GameObject> rows in floorTiles)
+        {
+            foreach (GameObject tile in rows)
+            {
+                Destroy(tile);
+            }
+        }
+        floorTiles.Clear();
+    }
+
+    void createMap()
     {
         //Make sure its empty
-        floorTiles.Clear();
+        ClearTileList();
 
         //x axis, columns
         for (int x = 0; x < columns; x++)
@@ -62,7 +65,10 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 0; y < rows; y++)
             {
-                if (Random.Range(1, 2) == 1)
+                // HERE
+                if (Random.Range(1, 100) > 50)
+                // THE CHANCE
+
                 {
                     floorTiles[x].Add(null);
                     //Debug.Log("Position at: " + x + " " + y + "Not created");
@@ -72,59 +78,75 @@ public class LevelManeger : MonoBehaviour
                 {
                     floorTiles[x].Add(Instantiate(pickTile()));
                     floorTiles[x][y].transform.position = new Vector3((x + 1) * offset, 0, (y + 1) * offset);
-                   //Debug.Log("Position at: " + x + " " + y + "Created");
+                    //Debug.Log("Position at: " + x + " " + y + "Created");
                 }
             }
         }
+    }
 
-        //Set start tile
-        Vector3 start_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows-1), 0);
+    private void InitialiseStart()
+    {
+        
+        start_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         //clean old tile
         Destroy(floorTiles[(int)start_pos.x][(int)start_pos.y]);
         startTile = Instantiate(Resources.Load<GameObject>("Prefabs/SpecialTile/Start Room"));
         startTile.transform.position = new Vector3((start_pos.x + 1) * offset, 0, (start_pos.y + 1) * offset);
         floorTiles[(int)start_pos.x][(int)start_pos.y] = startTile;
+    }
 
-        //Set end tile
-        Vector3 end_pos = new Vector3(Random.Range(0, columns -1), Random.Range(0, rows -1), 0);
+    private void IntialiseEnd()
+    {
+        end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
         //ToDo: Make sure they are farther apart
 
         bool notFarEnough = (isNotFarEnough(start_pos, end_pos, miniDistance));
-        bool canFind = !(depthFirstSearch(start_pos, end_pos));
-        Debug.Log("Yo we did the dfs and the result is:" + canFind);
-        
+        //Debug.Log("Yo we did the dfs and the result is:" + canFind);
+
 
         int i = 0;
         int compromiseDistance = miniDistance;
-        while (end_pos == start_pos || notFarEnough)
+        while (end_pos == start_pos || notFarEnough )
         {
             i++;
-            Debug.Log("Rerolling,  end_pos == start_pos:" + (end_pos == start_pos) + " notFarEnough:" + notFarEnough);
-            
+            //Debug.Log("Rerolling,  end_pos == start_pos:" + (end_pos == start_pos) + " notFarEnough:" + notFarEnough);
+
             end_pos = new Vector3(Random.Range(0, columns - 1), Random.Range(0, rows - 1), 0);
             //Give up tring to find a min distance after X number of tries
-            if(i % 10 == 0)
+            if (i % 10 == 0)
             {
                 compromiseDistance--;
                 //canFind = false;
-                Debug.Log("Compromising...");
+                //Debug.Log("Compromising...");
             }
             else
             {
                 notFarEnough = (isNotFarEnough(start_pos, end_pos, compromiseDistance));
-                //canFind = !(depthFirstSearch(start_pos, end_pos));
             }
-            
+
+
         }
-        Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
+        //Debug.Log((notFarEnough) + " " + end_pos.x + "," + end_pos.y + " " + start_pos.x + "," + start_pos.y);
         //clean old tile
         Destroy(floorTiles[(int)end_pos.x][(int)end_pos.y]);
         exitTile = Instantiate(Resources.Load<GameObject>("Prefabs/SpecialTile/End Room"));
         exitTile.transform.position = new Vector3((end_pos.x + 1) * offset, 0, (end_pos.y + 1) * offset);
         floorTiles[(int)end_pos.x][(int)end_pos.y] = exitTile;
+    }
 
-        //Spawn the player ball
-        spawnBall(start_pos);
+    //Put the cords in the grid
+    void InitialiseList()
+    {
+
+        createMap();
+
+        //Set start tile
+        InitialiseStart();
+
+        //Set end tile
+        IntialiseEnd();
+
+        
     }
 
 
@@ -154,7 +176,9 @@ public class LevelManeger : MonoBehaviour
         return false;
     }
 
-    //ToDo: Correct dfs so it actualy works
+
+
+    //ToDo: Change dfs to bfs, get all the tiles we can get to and remove the rest
     //find the end from the start
     bool depthFirstSearch(Vector3 start_pos, Vector3 to_find)
     {
@@ -171,7 +195,6 @@ public class LevelManeger : MonoBehaviour
         //Get The neighbors and add them too stack
         Vector3 top = to_search.Pop();
 
-        addListToStack(getNeighbors(top), ref to_search);
 
         foreach (Vector3 vector in getNeighbors(top))
         {
@@ -181,7 +204,7 @@ public class LevelManeger : MonoBehaviour
         while (to_search.Count > 0)
         {
             top = to_search.Pop();
-            Debug.Log("Looking at pos: " + top.ToString());
+            //Debug.Log("Looking at pos: " + top.ToString());
             if (top == to_find)
             {
                 return true;
@@ -211,7 +234,7 @@ public class LevelManeger : MonoBehaviour
     {
         int start_x = (int)start_pos.x;
         int start_y = (int)start_pos.y;
-        Debug.Log("Getting Neighbors");
+        //Debug.Log("Getting Neighbors");
         List<Vector3> to_return = new List<Vector3>();
 
         //Get left
@@ -248,6 +271,19 @@ public class LevelManeger : MonoBehaviour
         InitialiseList();
 
         //Check if dfs can find its way out of the loop, if so, run InitialiseList() again
+        bool cantfind = !(depthFirstSearch(start_pos, end_pos));
+
+
+        int j = 0;
+        while(cantfind && j < 6)
+        {
+            j++;
+            InitialiseList();
+            Debug.Log("Rerolling map");
+            cantfind = !(depthFirstSearch(start_pos, end_pos));
+        }
+        //Spawn the player ball
+        spawnBall(start_pos);
 
         //Set the active Tile as the start tile
         global.SetActiveTile(startTile);
@@ -283,7 +319,7 @@ public class LevelManeger : MonoBehaviour
 
                 if(current_tile != null)
                 {
-                    Debug.Log("The name of this tile is:" + current_tile.name);
+                    //Debug.Log("The name of this tile is:" + current_tile.name);
 
                     Transform[] current_door_transforms = current_tile.GetComponentsInChildren<Transform>();
 
@@ -291,7 +327,7 @@ public class LevelManeger : MonoBehaviour
                     {
                         if (child.name.Contains("Door"))
                         {
-                            Debug.Log("We got this door:" + child.name + " That belongs to: " + current_tile.name);
+                            //Debug.Log("We got this door:" + child.name + " That belongs to: " + current_tile.name);
                             GameObject nieghboor;
 
                             TeleportObject telport_script = child.GetComponent<TeleportObject>();
