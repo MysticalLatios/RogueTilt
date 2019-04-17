@@ -62,7 +62,7 @@ public class LevelManeger : MonoBehaviour
             // y axis, rows
             for (int y = 0; y < rows; y++)
             {
-                if (Random.Range(1, 6) == 1)
+                if (Random.Range(1, 2) == 1)
                 {
                     floorTiles[x].Add(null);
                     //Debug.Log("Position at: " + x + " " + y + "Not created");
@@ -90,7 +90,8 @@ public class LevelManeger : MonoBehaviour
         //ToDo: Make sure they are farther apart
 
         bool notFarEnough = (isNotFarEnough(start_pos, end_pos, miniDistance));
-        //bool canFind = !(depthFirstSearch(start_pos, end_pos));
+        bool canFind = !(depthFirstSearch(start_pos, end_pos));
+        Debug.Log("Yo we did the dfs and the result is:" + canFind);
         
 
         int i = 0;
@@ -171,7 +172,12 @@ public class LevelManeger : MonoBehaviour
         Vector3 top = to_search.Pop();
 
         addListToStack(getNeighbors(top), ref to_search);
-        
+
+        foreach (Vector3 vector in getNeighbors(top))
+        {
+            to_search.Push(vector);
+        }
+
         while (to_search.Count > 0)
         {
             top = to_search.Pop();
@@ -189,22 +195,16 @@ public class LevelManeger : MonoBehaviour
             {
                 //Who is this handsome fellow? (Haven't seen before)
                 searched[top] = 1;
-                addListToStack(getNeighbors(top), ref to_search);
+                foreach (Vector3 vector in getNeighbors(top))
+                {
+                    to_search.Push(vector);
+                }
             }
             
         }
         
         //didn't hit the return couldn't find it
         return false;
-    }
-
-    void addListToStack(List<Vector3> to_add,ref Stack<Vector3> muh_stack)
-    {
-        foreach (Vector3 vector in to_add)
-        {
-            muh_stack.Push(vector);
-            Debug.Log("Pushed to stack: " + vector.ToString());
-        }
     }
 
     List<Vector3> getNeighbors(Vector3 start_pos)
