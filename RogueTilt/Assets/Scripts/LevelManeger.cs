@@ -13,9 +13,6 @@ public class LevelManeger : MonoBehaviour
     private Vector3 start_pos;
     private Global global;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
-    
-
-    private Camera MainCamera;
 
     int offset = 60;
 
@@ -230,6 +227,78 @@ public class LevelManeger : MonoBehaviour
         return false;
     }
 
+
+    //Search through our grid to make sure we can find the exit, also destroy places we cant get to
+    private bool BreadthFirstSearch(Vector3 start_pos, Vector3 to_find)
+    {
+        bool found = false;
+
+        //Queue contains the Vector3 as position
+        Queue<Vector3> to_search = new Queue<Vector3>();
+        Dictionary<Vector3, int> searched = new Dictionary<Vector3, int>();
+
+        //Init all things in searched as false, 0
+        for (int x = 0; x < columns; x++)
+        {
+            for (int y = 0; y < rows; y++)
+            {
+                if (floorTiles[x][y] != null)
+                {
+                    searched[new Vector3(x,y)] = 0;
+                }
+            }
+        }
+
+        to_search.Enqueue(start_pos);
+
+        //searched is Vector3 acting as pos, and 1 or 0 if seen
+        searched[start_pos] = 1;
+
+        //Get The neighbors and add them too stack
+        Vector3 front = to_search.Dequeue();
+
+
+        foreach (Vector3 vector in getNeighbors(front))
+        {
+            to_search.Enqueue(vector);
+        }
+
+        while (to_search.Count > 0)
+        {
+            //Get front vector in queue
+            front = to_search.Dequeue();
+
+            if (front == to_find) found = true;
+
+            if (searched[front] == 1) { } // Already found so move on
+
+            else
+            {
+                //Who is this handsome fellow? (Haven't seen before)
+                searched[front] = 1;
+                foreach (Vector3 vector in getNeighbors(front))
+                {
+                    to_search.Enqueue(vector);
+                }
+            }
+
+        }
+
+        //Destory all squares we cant go to save some resources
+        foreach(KeyValuePair<Vector3, int> entry in searched)
+        {
+            if (entry.Value == 0)
+            {
+                Destroy(floorTiles[((int)entry.Key.x)][(int)entry.Key.y]);
+                floorTiles[((int)entry.Key.x)][(int)entry.Key.y] = null;
+            }
+        }
+
+
+        //Return if we found it or not
+        return found;
+    }
+
     List<Vector3> getNeighbors(Vector3 start_pos)
     {
         int start_x = (int)start_pos.x;
@@ -271,7 +340,7 @@ public class LevelManeger : MonoBehaviour
         InitialiseList();
 
         //Check if dfs can find its way out of the loop, if so, run InitialiseList() again
-        bool cantfind = !(depthFirstSearch(start_pos, end_pos));
+        bool cantfind = !(BreadthFirstSearch(start_pos, end_pos));
 
 
         int j = 0;
@@ -280,7 +349,7 @@ public class LevelManeger : MonoBehaviour
             j++;
             InitialiseList();
             Debug.Log("Rerolling map");
-            cantfind = !(depthFirstSearch(start_pos, end_pos));
+            cantfind = !(BreadthFirstSearch(start_pos, end_pos));
         }
         //Spawn the player ball
         spawnBall(start_pos);
