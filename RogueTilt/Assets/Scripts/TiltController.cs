@@ -27,6 +27,15 @@ public class TiltController : MonoBehaviour
             input_Gyro = Input.gyro;
             input_Gyro.enabled = true;
         }
+
+        //If the device is a Handheld
+        if(SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            //Lock the screen orientation
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+            //Stop the screen from timing out
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
     }
 
     public void FixedUpdate()
@@ -34,11 +43,14 @@ public class TiltController : MonoBehaviour
         //if system has a gryo use the gryo input
         if (SystemInfo.supportsGyroscope)
         {
-            Vector3 absolute_transform = input_Gyro.attitude.eulerAngles;
+            //Get gryo input
+            Quaternion raw_input = input_Gyro.attitude;
+            Vector3 destroy_z = raw_input.eulerAngles;
 
-            //ToDo: Make rotation more sensitve by taking half of the rotation, but make sure to correct the rotation first?
-            //Quaternions are a bit strange so double check everything https://i.redd.it/vqivxqqxpts21.jpg
-            global.GetActiveTile().transform.rotation = Quaternion.Euler(absolute_transform.x, 0, absolute_transform.y);
+            //remove the z rotation(roll)
+            Quaternion rotation = Quaternion.Euler(destroy_z.x, 0, destroy_z.y);
+            //Set the rotation of the active tile with a ratio of (gyro) 0.8:1 (tile)
+            global.GetActiveTile().transform.rotation = Quaternion.LerpUnclamped(Quaternion.identity, rotation, 0.8f);
         }
 
         //If no gryo use keyboard input
