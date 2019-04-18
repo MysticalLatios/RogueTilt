@@ -43,7 +43,7 @@ public class TeleportObject : MonoBehaviour
     public void passObject(GameObject to_move)
     {
 
-        Debug.Log("Got into pass Object");
+        //Debug.Log("Got into pass Object");
 
         global = GameObject.Find("GlobalObject").GetComponent<Global>();
 

@@ -261,6 +261,12 @@ public class LevelManeger : MonoBehaviour
            to_return.Add(new Vector3(start_x, start_y + 1));
         }
         
+        if(to_return.Count == 0)
+        {
+            //we where unable to find any Neighbors
+            Debug.Log("The tile at: " + start_x + "," + start_y + " Does not have any neighboors" );
+        }
+
         return to_return;
     }
 

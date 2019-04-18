@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Found Something");
+        //Debug.Log("Found Something");
         if (other.tag == "Door")
         {
             enter_door = true;
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         if(enter_door)
         {
-            Debug.Log("In door");
+            //Debug.Log("In door");
             if (stayCount > timetoTele)
             {
                 TeleportObject teleport = other.GetComponent<TeleportObject>();
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Left Door");
+        //Debug.Log("Left Door");
         if (other.tag == "Door")
         {
             enter_door = false;
