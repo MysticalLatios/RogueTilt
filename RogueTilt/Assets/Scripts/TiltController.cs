@@ -5,7 +5,7 @@ using UnityEngine;
 public class TiltController : MonoBehaviour
 {
     //max tilt amount
-    public int MaxDeg = 20;
+    public int MaxDeg = 25;
     //How fast rotation happens
     public float RotateRate = 2f;
 
@@ -14,6 +14,8 @@ public class TiltController : MonoBehaviour
 
     //Gryro for devices that support it
     Gyroscope input_Gyro;
+
+    Quaternion offset;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,8 @@ public class TiltController : MonoBehaviour
         {
             input_Gyro = Input.gyro;
             input_Gyro.enabled = true;
+
+            offset = input_Gyro.attitude;
         }
 
         //If the device is a Handheld
@@ -43,6 +47,10 @@ public class TiltController : MonoBehaviour
         //if system has a gryo use the gryo input
         if (SystemInfo.supportsGyroscope)
         {
+            //Set the offset in start or some other function something
+            Vector3 destroy_z_ofset = offset.eulerAngles;
+            offset = Quaternion.Euler(destroy_z_ofset.x, 0, destroy_z_ofset.y);
+
             //Get gryo input
             Quaternion raw_input = input_Gyro.attitude;
             Vector3 destroy_z = raw_input.eulerAngles;
@@ -50,7 +58,7 @@ public class TiltController : MonoBehaviour
             //remove the z rotation(roll)
             Quaternion rotation = Quaternion.Euler(destroy_z.x, 0, destroy_z.y);
             //Set the rotation of the active tile with a ratio of (gyro) 0.8:1 (tile)
-            global.GetActiveTile().transform.rotation = Quaternion.LerpUnclamped(Quaternion.identity, rotation, 0.8f);
+            global.GetActiveTile().transform.rotation = Quaternion.LerpUnclamped(offset, rotation, 0.8f);
         }
 
         //If no gryo use keyboard input
