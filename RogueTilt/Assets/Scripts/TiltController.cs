@@ -64,23 +64,38 @@ public class TiltController : MonoBehaviour
         //If no gryo use keyboard input
         else
         {
-            //check all the keyboard input
+            //create a new vector3 that will be the delta between the previous rotation and where we want to rotate to
+            Vector3 to_add =  new Vector3();
+
+            //check all the keyboard input to determine the deta of rotation
             if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
-                global.GetActiveTile().transform.Rotate(RotateRate, 0, 0);
+                to_add.x += RotateRate;
             }
             if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
-                global.GetActiveTile().transform.Rotate(-1 * RotateRate, 0, 0);
+                to_add.x += -1 * RotateRate;
             }
             if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
-                global.GetActiveTile().transform.Rotate(0, 0, RotateRate);
+                to_add.z += RotateRate;
             }
             if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
-                global.GetActiveTile().transform.Rotate(0, 0, -1f * RotateRate);
+                to_add.z += -1 * RotateRate;
             }
+
+            //Get the previous rotation
+            Vector3 PrevRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
+
+            //remove any roll
+            PrevRotation.y = 0;
+
+            //Ad the delta rotation to_add to the prev rotation to get the new rotation
+            Vector3 new_rotation = PrevRotation + to_add;
+
+            //Set the local rotation of the active tile as our new position
+            global.GetActiveTile().transform.localRotation = Quaternion.Euler(new_rotation);
         }
 
         //Space bar to reset rotation
@@ -89,10 +104,10 @@ public class TiltController : MonoBehaviour
             global.ResetActiveTile();
         }
 
-
+        //Get our curent rotation for checking it is out of bounds
         Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
-        //Debug.Log(currentRotation.x.ToString());
+        //Clamp our current rotation to the max amount
         currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), (-1 * MaxDeg), MaxDeg);
         currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), (-1 * MaxDeg), MaxDeg);
         global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
