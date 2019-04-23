@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private float timetoTele = 0.25f;
+    private float timetoTele = 1.0f;
     private float stayCount = 0.0f;
     bool enter_door = false;
 
