@@ -11,7 +11,7 @@ public class TeleportObject : MonoBehaviour
 
     public Direction my_dir;
 
-    private float OFFSET = 2.5f;
+    private float OFFSET = 2.0f;
 
     private GameObject Exit;
 
@@ -83,16 +83,16 @@ public class TeleportObject : MonoBehaviour
         switch (my_dir)
         {
             case Direction.NORTH:
-                new_pos = new Vector3(Exit.transform.position.x, 3.0f, Exit.transform.position.z);
+                new_pos = new Vector3(Exit.transform.position.x, 4.0f, Exit.transform.position.z+OFFSET);
                 break;
             case Direction.EAST:
-                new_pos = new Vector3(Exit.transform.position.x, 3.0f, Exit.transform.position.z);
+                new_pos = new Vector3(Exit.transform.position.x +OFFSET, 4.0f, Exit.transform.position.z);
                 break;
             case Direction.SOUTH:
-                new_pos = new Vector3(Exit.transform.position.x, 3.0f, Exit.transform.position.z);
+                new_pos = new Vector3(Exit.transform.position.x, 4.0f, Exit.transform.position.z-OFFSET);
                 break;
             case Direction.WEST:
-                new_pos = new Vector3(Exit.transform.position.x, 3.0f, Exit.transform.position.z);
+                new_pos = new Vector3(Exit.transform.position.x -OFFSET, 4.0f, Exit.transform.position.z);
                 break;
 
         }
