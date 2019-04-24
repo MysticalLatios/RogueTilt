@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f785f6df370c1f34ca4ef8b32275a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_dir: 0
 --- !u!1 &643974052460255354
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f785f6df370c1f34ca4ef8b32275a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_dir: 0
 --- !u!1 &3812914503389870096
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,8 +810,8 @@ GameObject:
   - component: {fileID: 6371849151378193353}
   - component: {fileID: 8905873190637564738}
   m_Layer: 0
-  m_Name: StartPlatform
-  m_TagString: Untagged
+  m_Name: EndPlatform
+  m_TagString: Goal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -881,12 +883,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4414324028098149012}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 0
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.4
+  m_Height: 4
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5653584449563350187
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,6 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f785f6df370c1f34ca4ef8b32275a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_dir: 0
 --- !u!1 &5807255919417013118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,3 +1098,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f785f6df370c1f34ca4ef8b32275a70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_dir: 0
