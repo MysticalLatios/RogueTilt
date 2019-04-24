@@ -99,6 +99,8 @@ public class TeleportObject : MonoBehaviour
 
         to_move.transform.position = new_pos;
 
+        to_move.GetComponent<Player>().SetLastSpawnPos(new_pos);
+
         // we are getting the top level parent object form out structure of door->wall->room
         // this is also flawless code.
         global.SetActiveTile(Exit.transform.parent.parent.gameObject);
