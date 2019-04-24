@@ -5,6 +5,10 @@ A unity game where you move a ball through a procedurally generated maze/dungeon
 Zach Freeman
 &
 Joshua Alpert
+&
+Seaney F. Shell
+&
+Jasmin Mendez
 
 ### Special thanks to our art master:
 Ron Homer

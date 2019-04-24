@@ -311,8 +311,31 @@ public class LevelManeger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
+
+
+    void GetDoorExit(GameObject exitRoom, string doorName, TeleportObject me)
+    {
+        if (exitRoom != null)
+        {
+            Transform[] PossibleExits = exitRoom.GetComponentsInChildren<Transform>();
+            foreach (Transform exit in PossibleExits)
+            {
+                if (exit.name == doorName)
+                {
+                    me.setExit(exit.gameObject);
+                }
+
+            }
+        }
+        else
+        {
+            me.setExit(null);
+        }
+
+    }
+
 
 
     //Assign each tile its neighboors
@@ -351,14 +374,17 @@ public class LevelManeger : MonoBehaviour
                                     {
                                         nieghboor = floorTiles[x][y + 1];
 
-                                        telport_script.AssignRoom(nieghboor);
+                                        GetDoorExit(nieghboor, "S Door",telport_script);
+                                        telport_script.assignDir(TeleportObject.Direction.NORTH);
+
+                                        //telport_script.AssignRoom(nieghboor);
                                         //Debug.Log("Assigned a room to a door");
 
                                     }
 
                                     else
                                     {
-                                        telport_script.AssignRoom(null);
+                                        telport_script.setExit(null);
                                     }
 
                                     break;
@@ -370,14 +396,20 @@ public class LevelManeger : MonoBehaviour
                                     {
                                         nieghboor = floorTiles[x + 1][y];
 
-                                        telport_script.AssignRoom(nieghboor);
-                                        //Debug.Log("Assigned a room to a door");
+
+                                        GetDoorExit(nieghboor, "W Door",telport_script);
+
+                                        //telport_script.AssignRoom(nieghboor);
+
+                                        telport_script.assignDir(TeleportObject.Direction.EAST);
+
+                                        Debug.Log("Assigned a room to a door");
 
                                     }
 
                                     else
                                     {
-                                        telport_script.AssignRoom(null);
+                                        telport_script.setExit(null);
                                     }
 
                                     break;
@@ -388,14 +420,20 @@ public class LevelManeger : MonoBehaviour
                                     {
                                         nieghboor = floorTiles[x][y - 1];
 
-                                        telport_script.AssignRoom(nieghboor);
+
+                                        GetDoorExit(nieghboor, "N Door", telport_script);
+
+
+                                        //telport_script.AssignRoom(nieghboor);
+                                        telport_script.assignDir(TeleportObject.Direction.SOUTH);
+
                                         //Debug.Log("Assigned a room to a door");
 
                                     }
 
                                     else
                                     {
-                                        telport_script.AssignRoom(null);
+                                        telport_script.setExit(null);
                                     }
 
                                     break;
@@ -406,14 +444,19 @@ public class LevelManeger : MonoBehaviour
                                     {
                                         nieghboor = floorTiles[x - 1][y];
 
-                                        telport_script.AssignRoom(nieghboor);
-                                        //Debug.Log("Assigned a room to a door");
 
+                                        GetDoorExit(nieghboor, "E Door", telport_script);
+
+
+                                        //telport_script.AssignRoom(nieghboor);
+                                        telport_script.assignDir(TeleportObject.Direction.WEST);
+
+                                        //Debug.Log("Assigned a room to a door");
                                     }
 
                                     else
                                     {
-                                        telport_script.AssignRoom(null);
+                                        telport_script.setExit(null);
                                     }
                                     break;
 
@@ -427,3 +470,4 @@ public class LevelManeger : MonoBehaviour
         }
     }
 }
+

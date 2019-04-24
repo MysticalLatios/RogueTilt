@@ -6,6 +6,7 @@ public class Global : MonoBehaviour
 {
     public static GameObject ActiveTile;
     private LevelManeger levmanag;
+   
 
     public GameObject GetActiveTile()
     {
@@ -20,8 +21,13 @@ public class Global : MonoBehaviour
 
     public void SetActiveTile(GameObject gameObject)
     {
+        //If we already have an active tile reset its rotation
+        if(ActiveTile != null)
+        {
+            ResetActiveTile();
+        }
+        
         ActiveTile = gameObject;
-        ResetActiveTile();
         Debug.Log("The Active Tile has been set");
     }
 
