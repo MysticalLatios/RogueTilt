@@ -8,12 +8,23 @@ public class Player : MonoBehaviour
     private float stayCount = 0.0f;
     bool enter_door = false;
 
+    private Vector3 last_spawn_pos;
+
     Global global;
+
+    public void SetLastSpawnPos(Vector3 pos)
+    {
+        last_spawn_pos = pos;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        global = GameObject.Find("GlobalObject").GetComponent<Global>();
+
+        //Set default last spawn pos
+        last_spawn_pos = global.GetActiveTile().transform.position;
+        last_spawn_pos.y = 3.0f;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,14 +74,12 @@ public class Player : MonoBehaviour
             Destroy(gameObject);
         }
         */
+
+        //Check if the ball is out of bounds
         if (transform.position.y < -10)
         {
-            global = GameObject.Find("GlobalObject").GetComponent<Global>();
-            
-            Vector3 new_pos = new Vector3();
-            new_pos = global.GetActiveTile().transform.position;
-            new_pos.y = 3.0f;
-            gameObject.transform.position = new_pos;
+            global.ResetActiveTile();
+            gameObject.transform.position = last_spawn_pos;
         }
     }
 }
