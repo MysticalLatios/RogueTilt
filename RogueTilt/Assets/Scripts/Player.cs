@@ -30,10 +30,15 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("Found Something");
-        if (other.tag == "Door")
+        if (other.CompareTag("Door"))
         {
             enter_door = true;
         }
+        else if (other.CompareTag("Goal"))
+        {
+            FindObjectOfType<StartUI>().hitGoal();
+        }
+
     }
 
     private void OnTriggerStay(Collider other)

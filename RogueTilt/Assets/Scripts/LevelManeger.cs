@@ -11,7 +11,6 @@ public class LevelManeger : MonoBehaviour
     private Vector3 end_pos;
     private GameObject startTile;
     private Vector3 start_pos;
-    public StartUI startscript;
     private Global global;
     public List<List<GameObject>> floorTiles = new List<List<GameObject>>(); //All the other tiles
 
@@ -300,7 +299,7 @@ public class LevelManeger : MonoBehaviour
 
         AssignNeighbors();
 
-        startscript.StartFreeze(3.0f);
+        FindObjectOfType<StartUI>().StartFreeze(3.0f);
     }
 
     //spawn player ball in start tile

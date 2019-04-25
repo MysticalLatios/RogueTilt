@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - Goal
+  - startUI
   layers:
   - Default
   - TransparentFX
