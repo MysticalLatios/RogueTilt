@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
         }
         else if (other.CompareTag("Goal"))
         {
-            FindObjectOfType<StartUI>().hitGoal();
+            FindObjectOfType<InGameManager>().HitGoal();
         }
 
     }

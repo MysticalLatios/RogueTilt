@@ -298,8 +298,6 @@ public class LevelManeger : MonoBehaviour
         global.SetActiveTile(startTile);
 
         AssignNeighbors();
-
-        FindObjectOfType<StartUI>().StartFreeze(3.0f);
     }
 
     //spawn player ball in start tile
