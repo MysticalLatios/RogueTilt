@@ -5,7 +5,7 @@ using UnityEngine;
 public class TiltController : MonoBehaviour
 {
     //max tilt amount
-    public int MaxDeg = 25;
+    public int MaxDeg = 35;
     //How fast rotation happens
     public float RotateRate = 2f;
 
@@ -39,6 +39,7 @@ public class TiltController : MonoBehaviour
             Screen.orientation = ScreenOrientation.LandscapeLeft;
             //Stop the screen from timing out
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            MaxDeg = 75;
         }
     }
 
@@ -49,7 +50,7 @@ public class TiltController : MonoBehaviour
         {
             //Set the offset in start or some other function something
             Vector3 destroy_z_ofset = offset.eulerAngles;
-            offset = Quaternion.Euler(destroy_z_ofset.x, 0, destroy_z_ofset.y);
+            offset = Quaternion.Euler(destroy_z_ofset.x,0 , destroy_z_ofset.y);
 
             //Get gryo input
             Quaternion raw_input = input_Gyro.attitude;
@@ -58,7 +59,7 @@ public class TiltController : MonoBehaviour
             //remove the z rotation(roll)
             Quaternion rotation = Quaternion.Euler(destroy_z.x, 0, destroy_z.y);
             //Set the rotation of the active tile with a ratio of (gyro) 0.8:1 (tile)
-            global.GetActiveTile().transform.rotation = Quaternion.LerpUnclamped(offset, rotation, 0.8f);
+            global.GetActiveTile().transform.rotation = Quaternion.SlerpUnclamped(offset, rotation, 1f);
         }
 
         //If no gryo use keyboard input
@@ -123,6 +124,13 @@ public class TiltController : MonoBehaviour
         }
 
         return currentRotation;
+    }
+
+
+    public void resetOffset()
+    {
+        //offset = input_Gyro.attitude;
+
     }
 
 
