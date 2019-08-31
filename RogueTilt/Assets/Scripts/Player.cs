@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         */
 
         //Check if the ball is out of bounds
-        if (transform.position.y < -10)
+        if (transform.position.y < -20)
         {
             global.ResetActiveTile();
             gameObject.transform.position = last_spawn_pos;

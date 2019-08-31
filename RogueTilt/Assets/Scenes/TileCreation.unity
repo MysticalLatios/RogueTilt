@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce010b3364cbd084a976ec959c501d85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDeg: 20
+  MaxDeg: 80
   RotateRate: 2
 --- !u!4 &571715337
 Transform:

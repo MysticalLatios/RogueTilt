@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class TiltController : MonoBehaviour
 {
     //max tilt amount
-    public int MaxDeg = 35;
+    public int MaxDeg = 80;
     //How fast rotation happens
     public float RotateRate = 2f;
 
@@ -29,7 +31,9 @@ public class TiltController : MonoBehaviour
             input_Gyro = Input.gyro;
             input_Gyro.enabled = true;
 
-            offset = input_Gyro.attitude;
+            offset = GyroToUnity(input_Gyro.attitude);
+            Vector3 destroy_z_ofset = offset.eulerAngles;
+            offset = Quaternion.Euler(destroy_z_ofset.x, 0, destroy_z_ofset.y);
         }
 
         //If the device is a Handheld
@@ -48,18 +52,15 @@ public class TiltController : MonoBehaviour
         //if system has a gryo use the gryo input
         if (SystemInfo.supportsGyroscope)
         {
-            //Set the offset in start or some other function something
-            Vector3 destroy_z_ofset = offset.eulerAngles;
-            offset = Quaternion.Euler(destroy_z_ofset.x,0 , destroy_z_ofset.y);
 
             //Get gryo input
-            Quaternion raw_input = input_Gyro.attitude;
+            Quaternion raw_input = GyroToUnity(input_Gyro.attitude);
             Vector3 destroy_z = raw_input.eulerAngles;
 
             //remove the z rotation(roll)
-            Quaternion rotation = Quaternion.Euler(destroy_z.x, 0, destroy_z.y);
+            Quaternion rotation = Quaternion.Euler(destroy_z.x,0,  destroy_z.y);
             //Set the rotation of the active tile with a ratio of (gyro) 0.8:1 (tile)
-            global.GetActiveTile().transform.rotation = Quaternion.SlerpUnclamped(offset, rotation, 1f);
+            global.GetActiveTile().transform.rotation = rotation;
         }
 
         //If no gryo use keyboard input
@@ -95,6 +96,30 @@ public class TiltController : MonoBehaviour
             //Ad the delta rotation to_add to the prev rotation to get the new rotation
             Vector3 new_rotation = PrevRotation + to_add;
 
+            if (new_rotation.x > MaxDeg && new_rotation.x < 360 - MaxDeg)
+            {
+                if (global.GetActiveTile().transform.rotation.eulerAngles.x < MaxDeg)
+                {
+                    new_rotation.x = MaxDeg;
+                }
+                else
+                {
+                    new_rotation.x = (360 - MaxDeg);
+                }
+            }
+            if (new_rotation.z > MaxDeg && new_rotation.x < 360 - MaxDeg)
+            {
+                if (global.GetActiveTile().transform.rotation.eulerAngles.z < MaxDeg)
+                {
+                    new_rotation.z = (MaxDeg);
+                }
+                else
+                {
+                    new_rotation.z = (360 - MaxDeg);
+                }
+            }
+
+
             //Set the local rotation of the active tile as our new position
             global.GetActiveTile().transform.localRotation = Quaternion.Euler(new_rotation);
         }
@@ -106,12 +131,12 @@ public class TiltController : MonoBehaviour
         }
 
         //Get our curent rotation for checking it is out of bounds
-        Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
+        //Vector3 currentRotation = global.GetActiveTile().transform.localRotation.eulerAngles;
 
         //Clamp our current rotation to the max amount
-        currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), (-1 * MaxDeg), MaxDeg);
-        currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), (-1 * MaxDeg), MaxDeg);
-        global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
+        //currentRotation.x = Mathf.Clamp(CorrectedRotation(currentRotation.x), (-1 * MaxDeg), MaxDeg);
+        //currentRotation.z = Mathf.Clamp(CorrectedRotation(currentRotation.z), (-1 * MaxDeg), MaxDeg);
+        //global.GetActiveTile().transform.localRotation = Quaternion.Euler(currentRotation);
 
     }
 
@@ -133,5 +158,10 @@ public class TiltController : MonoBehaviour
 
     }
 
-
+    private static Quaternion GyroToUnity(Quaternion q)
+    {
+        return new Quaternion(q.x, q.y, q.z, -q.w);
+    }
 }
+
+
